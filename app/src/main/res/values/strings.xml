@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Easy Writers</string>
+    <string name="title_freewrite_list">Freewrites</string>
+    <string name="title_freewrite_detail">Freewrite Detail</string>
+</resources>
