@@ -2,4 +2,6 @@
     <string name="app_name">Easy Writers</string>
     <string name="title_freewrite_list">Freewrites</string>
     <string name="title_freewrite_detail">Freewrite Detail</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
