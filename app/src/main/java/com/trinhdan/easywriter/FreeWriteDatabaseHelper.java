@@ -4,13 +4,17 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.Date;
+
 public class FreeWriteDatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "freewrites.db";
     private static final int VERSION = 1;
+    private Context context;
 
     public FreeWriteDatabaseHelper(Context context){
         super(context, DB_NAME, null, VERSION);
+        this.context = context;
     }
 
     public static final class FreewriteTable {
@@ -40,6 +44,8 @@ public class FreeWriteDatabaseHelper extends SQLiteOpenHelper {
                 FreewriteTable.COL_DURATION + " float," +
                 FreewriteTable.COL_FAV + " integer" +
                 ")");
+
+        seed();
     }
 
     @Override
@@ -52,5 +58,14 @@ public class FreeWriteDatabaseHelper extends SQLiteOpenHelper {
 
     // Add methods to UPDATE and DELETE VALUES from the data.
 
+    /**
+     * Seeds the database with some default information. For debugging; to be removed later.
+     */
+    private void seed(){
+        FreeWrite fw1 = new FreeWrite(0, new Date(), "Writing Test #01", "fake_link", 0, false);
+        FreeWrite fw2 = new FreeWrite(1, new Date(), "Writing Test #02", "fake_link", 0, false);
 
+        FreeWriteDAO.getInstance(context).insertFreeWrite(fw1);
+        FreeWriteDAO.getInstance(context).insertFreeWrite(fw2);
+    }
 }
