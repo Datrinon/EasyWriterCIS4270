@@ -7,12 +7,12 @@ import androidx.fragment.app.FragmentManager;
 import android.os.Bundle;
 
 // Follow fragment code for a master - detail sort of ordeal.
-public class HistoryListActivity extends AppCompatActivity {
+public class FreeWriteListActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_history_list);
+        setContentView(R.layout.activity_freewrite_list);
 
         FragmentManager fm = getSupportFragmentManager();
         // FragmentTransaction is not necessary, we can just chain add and commit to it later.
@@ -21,7 +21,7 @@ public class HistoryListActivity extends AppCompatActivity {
         Fragment fragment = fm.findFragmentById(R.id.list_fragment_container);
 
         if (fragment == null){
-            fragment = new HistoryListFragment();
+            fragment = new FreeWriteListFragment();
             // add to the listfragmentcontainer a historylistfragment, and then commit() to materialize.
             fm.beginTransaction().add(R.id.list_fragment_container, fragment).commit();
         }
