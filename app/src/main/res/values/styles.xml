@@ -23,4 +23,16 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginHorizontal">50dp</item>
     </style>
+
+    <style name="Header3" parent="Header2">
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="TimerSeekBar" parent="Widget.AppCompat.SeekBar.Discrete">
+        <item name="android:progressBackgroundTint">#f4511e</item>
+        <item name="android:progressTint">#EA1361</item>
+        <item name="android:colorControlActivated">#E53935</item>
+        <item name="android:thumbTint">#BDA655</item>
+    </style>
+
 </resources>

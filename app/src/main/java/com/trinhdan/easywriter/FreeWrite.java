@@ -18,6 +18,9 @@ public class FreeWrite {
     private Date date;
     private String title;
     private String link;
+
+
+    private String storyPics;
     private double duration;
     private boolean favorite;
 
@@ -26,17 +29,27 @@ public class FreeWrite {
         this.date = new Date();
         this.title = "";
         this.link = "";
+        this.storyPics = "";
         this.duration = 0;
         this.favorite = false;
     }
 
-    public FreeWrite(int id, Date date, String title, String link, double duration, boolean favorite){
+    public FreeWrite(int id, Date date, String title, String storyPics, String link, double duration, boolean favorite){
         this.id = id;
         this.date = date;
         this.title = title;
+        this.storyPics = storyPics;
         this.link = link;
         this.duration = duration;
         this.favorite = favorite;
+    }
+
+    public String getStoryPics() {
+        return storyPics;
+    }
+
+    public void setStoryPics(String storyPics) {
+        this.storyPics = storyPics;
     }
 
     public Date getDate() {

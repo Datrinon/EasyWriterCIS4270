@@ -4,4 +4,11 @@
     <string name="title_freewrite_detail">Freewrite Detail</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string-array name="dice_number">
+        <item>1 Die</item>
+        <item>2 Die</item>
+        <item>3 Die</item>
+        <item>4 Die</item>
+    </string-array>
 </resources>

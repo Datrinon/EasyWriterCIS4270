@@ -55,11 +55,12 @@ public class FreeWriteDAO {
                 int id = cursor.getInt(0);
                 Date date =  FreeWrite.DATE_FORMAT.parse(cursor.getString(1));
                 String title = cursor.getString(2);
-                String link = cursor.getString(3);
-                double duration = cursor.getFloat(4);
-                boolean favorite = cursor.getInt(5) == 1 ? true : false;
+                String storyPic = cursor.getString(3);
+                String link = cursor.getString(4);
+                double duration = cursor.getFloat(5);
+                boolean favorite = cursor.getInt(6) == 1 ? true : false;
 
-                fwList.add(new FreeWrite(id, date, title, link, duration, favorite));
+                fwList.add(new FreeWrite(id, date, title, storyPic, link, duration, favorite));
             } while (cursor.moveToNext());
         } catch(SQLiteException | ParseException | CursorIndexOutOfBoundsException e){
             Log.e("Database Error", e.getMessage());

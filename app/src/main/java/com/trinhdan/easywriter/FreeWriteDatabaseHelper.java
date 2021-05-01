@@ -24,6 +24,8 @@ public class FreeWriteDatabaseHelper extends SQLiteOpenHelper {
         public static final String COL_ID = "_id";
         // timestamp the freewrite was created
         public static final String COL_DATE = "date";
+        // the story pictures that the user landed on; saved as a delimited string
+        public static final String COL_STORY_PICS = "story_pics";
         // title given by the user to the freewrite
         public static final String COL_TITLE = "title";
         // .txt filepath on device of the freewrite
@@ -40,6 +42,7 @@ public class FreeWriteDatabaseHelper extends SQLiteOpenHelper {
                 FreewriteTable.COL_ID  + " integer primary key autoincrement," +
                 FreewriteTable.COL_DATE + " text, " + // no datetime datatype in sqlite, store as text
                 FreewriteTable.COL_TITLE + " text, " +
+                FreewriteTable.COL_STORY_PICS + " text, " +
                 FreewriteTable.COL_LINK + " text, " +
                 FreewriteTable.COL_DURATION + " float," +
                 FreewriteTable.COL_FAV + " integer" +
@@ -60,8 +63,8 @@ public class FreeWriteDatabaseHelper extends SQLiteOpenHelper {
      * Seeds the database with some default information. For debugging; to be removed later.
      */
     private void seed(){
-        FreeWrite fw1 = new FreeWrite(0, new Date(), "Freewrite #01", "fake_link", 0, false);
-        FreeWrite fw2 = new FreeWrite(1, new Date(), "Freewrite #02", "fake_link", 0, false);
+        FreeWrite fw1 = new FreeWrite(0, new Date(), "Freewrite #01", "fake_link", "", 0, false);
+        FreeWrite fw2 = new FreeWrite(1, new Date(), "Freewrite #02", "fake_link", "", 0, false);
 
         FreeWriteDAO.getInstance(context).insertFreeWrite(fw1);
         FreeWriteDAO.getInstance(context).insertFreeWrite(fw2);
