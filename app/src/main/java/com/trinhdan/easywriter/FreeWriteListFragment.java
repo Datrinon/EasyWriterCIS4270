@@ -1,13 +1,19 @@
 package com.trinhdan.easywriter;
 
+import android.content.res.Configuration;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -15,19 +21,65 @@ import java.util.List;
 
 public class FreeWriteListFragment extends Fragment {
 
+    private List<FreeWrite> freeWrites;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout of this fragment
-        View view = inflater.inflate(R.layout.fragment_freewrite_list, container, false);
-        LinearLayout layout = (LinearLayout) view;
 
-        // Create the buttons using the band names and ids from BandDatabase
-        List<FreeWrite> freeWritesList = FreeWriteDAO.getInstance(getContext()).fetchAllFreeWrites();
+        freeWrites = FreeWriteDAO.getInstance(getContext()).fetchAllFreeWrites();
 
-        // Skip the for loop, go straight to the implementation of a recycler view.
 
-        return view;
+        if (freeWrites.size() > 0) {
+            // Inflate the RecyclerView view*holder* (not a viewgroup, is a viewholder)
+            View view = inflater.inflate(R.layout.fragment_freewrite_list, container, false);
+
+            // RecyclerView -- three steps
+            // 1. Reference the recycler view inside of the fragment's view
+            // 2. Set a layout manager to manage how views should be recycled.
+            // 3. Set an adapter to materialize data into views for the recycler view.
+
+            // This is the recyclerview that is defined inside of the layout that was just inflated.
+            RecyclerView recyclerView = view.findViewById(R.id.freewrite_recycler_view);
+            // Set the layout manager the recycler view will use
+            recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+            // Set adapter for the recyclerview to use.
+            FreeWriteAdapter adapter = new FreeWriteAdapter(FreeWriteDAO.getInstance(getContext()).fetchAllFreeWrites());
+            recyclerView.setAdapter(adapter);
+
+            DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
+                    DividerItemDecoration.VERTICAL);
+            recyclerView.addItemDecoration(dividerItemDecoration);
+
+            return view;
+        } else {
+            LinearLayout ll = new LinearLayout(getContext());
+            ll.setOrientation(LinearLayout.VERTICAL);
+
+            ImageView warningSign = new ImageView(getContext());
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(250, 250);
+            layoutParams.gravity=Gravity.CENTER;
+            layoutParams.topMargin = (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) ? 500 : 250;
+            warningSign.setLayoutParams(layoutParams);
+
+            warningSign.setImageResource(R.drawable.warning);
+            warningSign.requestLayout();
+
+
+            Log.d("DEBUG", "Tell the user there are no free writes");
+            TextView noFreeWritesMsg = new TextView(getContext());
+            noFreeWritesMsg.setText("No free writes found... yet. Get writing!");
+            noFreeWritesMsg.setTextSize(20);
+            noFreeWritesMsg.setGravity(Gravity.CENTER);
+
+            ll.addView(warningSign);
+            ll.addView(noFreeWritesMsg);
+
+            // Return this fragment to the user.
+            return ll;
+        }
+
+
     }
 
 //    private final View.OnClickListener buttonClickListener = new View.OnClickListener() {

@@ -44,8 +44,6 @@ public class FreeWriteDatabaseHelper extends SQLiteOpenHelper {
                 FreewriteTable.COL_DURATION + " float," +
                 FreewriteTable.COL_FAV + " integer" +
                 ")");
-
-        seed();
     }
 
     @Override
@@ -62,8 +60,8 @@ public class FreeWriteDatabaseHelper extends SQLiteOpenHelper {
      * Seeds the database with some default information. For debugging; to be removed later.
      */
     private void seed(){
-        FreeWrite fw1 = new FreeWrite(0, new Date(), "Writing Test #01", "fake_link", 0, false);
-        FreeWrite fw2 = new FreeWrite(1, new Date(), "Writing Test #02", "fake_link", 0, false);
+        FreeWrite fw1 = new FreeWrite(0, new Date(), "Freewrite #01", "fake_link", 0, false);
+        FreeWrite fw2 = new FreeWrite(1, new Date(), "Freewrite #02", "fake_link", 0, false);
 
         FreeWriteDAO.getInstance(context).insertFreeWrite(fw1);
         FreeWriteDAO.getInstance(context).insertFreeWrite(fw2);

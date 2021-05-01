@@ -3,6 +3,7 @@ package com.trinhdan.easywriter;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.database.CursorIndexOutOfBoundsException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.util.Log;
@@ -60,7 +61,7 @@ public class FreeWriteDAO {
 
                 fwList.add(new FreeWrite(id, date, title, link, duration, favorite));
             } while (cursor.moveToNext());
-        } catch(SQLiteException | ParseException e){
+        } catch(SQLiteException | ParseException | CursorIndexOutOfBoundsException e){
             Log.e("Database Error", e.getMessage());
             e.printStackTrace();
         } finally {
