@@ -4,6 +4,8 @@
     <string name="title_freewrite_detail">Freewrite Detail</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="timer_choice_dialog">Your free write session will last %d minutes.</string>
+    <string name="dice_choice_dialog">Your session will use %d dice.</string>
 
     <string-array name="dice_number">
         <item>1 Die</item>

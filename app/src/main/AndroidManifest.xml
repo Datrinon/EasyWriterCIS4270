@@ -9,9 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.EasyWriter">
-        <activity android:name=".FreeWriteConfigActivity"
-                  android:label="Free Write Settings"
-            ></activity>
+        <activity android:name=".PickStoriesActivity"></activity>
+        <activity
+            android:name=".FreeWriteConfigActivity"
+            android:label="Free Write Settings" />
         <activity
             android:name=".FreeWriteListActivity"
             android:parentActivityName=".MainActivity" />
