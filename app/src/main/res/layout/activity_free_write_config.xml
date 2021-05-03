@@ -99,7 +99,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             android:layout_marginLeft="15dp"
-            android:text="How many story dice would you like to use?"
+            android:text="@string/story_dice_description"
             android:fontFamily="sans-serif-condensed"
             android:textStyle="italic"
             />

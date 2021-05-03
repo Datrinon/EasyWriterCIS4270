@@ -1,5 +1,6 @@
 package com.trinhdan.easywriter;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -42,18 +43,6 @@ public class FreeWriteConfigActivity extends AppCompatActivity {
         diceQuantityDialog = findViewById(R.id.dice_setting_choice);
         launchSessionButton = findViewById(R.id.Begin_Session_Button);
 
-        int defaultMinutes = seekbar.getProgress() + FreeWriteConfigManager.BASE_MINUTES;
-        int defaultDice = spinner.getSelectedItemPosition() + 1;
-
-        // Set the dialog of the options.
-        timeChoiceDialog.setText(String.format(getString(R.string.timer_choice_dialog),
-                                                defaultMinutes));
-        diceQuantityDialog.setText(String.format(getString(R.string.dice_choice_dialog), defaultDice));
-
-        // Now set the game object to that
-         gameManager.setDiceQuantity(defaultDice);
-         gameManager.setTimerDuration(defaultMinutes);
-
         // region Spinner Initialization for user to select dice.
         spinner = findViewById(R.id.spinner_dice_quantity);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.dice_number,
@@ -74,6 +63,8 @@ public class FreeWriteConfigActivity extends AppCompatActivity {
 
             }
         });
+
+        spinner.setSelection(2); // set default die to three.
         //endregion
 
         // Seekbar configuration.
@@ -83,7 +74,7 @@ public class FreeWriteConfigActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 int minutes = progress + FreeWriteConfigManager.BASE_MINUTES;
-                gameManager.setDiceQuantity(progress);
+                gameManager.setTimerDuration(minutes);
                 timeChoiceDialog.setText(String.format(getString(R.string.timer_choice_dialog), minutes));
             }
 
@@ -96,14 +87,24 @@ public class FreeWriteConfigActivity extends AppCompatActivity {
             }
         });
 
-        // launch the session over here.
-        // Start game should... start a new game.
+        // In this section, we set the dialog and have the game manager track the user's selection.
+        int defaultMinutes = seekbar.getProgress() + FreeWriteConfigManager.BASE_MINUTES;
+        int defaultDice = spinner.getSelectedItemPosition() + 1;
+
+        // Set the dialog of the options.
+        timeChoiceDialog.setText(String.format(getString(R.string.timer_choice_dialog),
+                defaultMinutes));
+        diceQuantityDialog.setText(String.format(getString(R.string.dice_choice_dialog), defaultDice));
+
+        gameManager.setDiceQuantity(defaultDice);
+        gameManager.setTimerDuration(defaultMinutes);
+
+        // The button at the bottom will launch the game session.
         launchSessionButton.setOnClickListener(v -> {
-            Intent intent = new Intent(FreeWriteConfigActivity.this, PickStoriesActivity.class);
+            Intent intent = new Intent(FreeWriteConfigActivity.this, FreeWriteActivity.class);
             startActivity(intent);
-            // Don't need to pass in the singleton, it will live as long as the process lives... apparently? Hm.
+            //TODO: Use startActivityForResult to boot user to main menu if they abort by finishing this
         });
-
-
     }
+
 }

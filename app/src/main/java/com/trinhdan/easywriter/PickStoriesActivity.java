@@ -5,27 +5,53 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
 public class PickStoriesActivity extends AppCompatActivity {
+
+    ViewGroup diceContainer;
+    ImageView[] dice;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pick_stories);
 
+        // assign to variable to make it easier to read
+        int chosenDiceAmt = FreeWriteConfigManager.getInstance().getDiceQuantity();
+
         Log.e("Test", "Game Manager Says: " + FreeWriteConfigManager.getInstance().getDiceQuantity());
 
-        ArrayList<Integer> picArr = new ArrayList<>();
-
-
-        for(int i = 1; i <= 116; i++){
-            picArr.add(getResources().getIdentifier("pic_"+i,
+        // Run this on the background thread
+        // Create an ArrayList that will hold all references to every picture that a die can have.
+        ArrayList<Integer> dicePictureIds = new ArrayList<>();
+        for(int i = 1; i <= FreeWriteConfigManager.DIE_SIDES; i++){
+            dicePictureIds.add(getResources().getIdentifier("pic_"+i,
                                             "drawable", "com.trinhdan.easywriter"));
         }
 
-        Log.d("Pause", "Dab");
+        dice = new ImageView[chosenDiceAmt];
+
+        diceContainer = findViewById(R.id.dice_container);
+
+        for (int i = 0; i < chosenDiceAmt; i++){
+            dice[i] = new ImageView(this);
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 400, 1);
+
+            dice[i].setLayoutParams(layoutParams);
+            dice[i].setPadding(0, 15, 15, 0);
+            dice[i].setImageResource(R.mipmap.question_box);
+
+            diceContainer.addView(dice[i]);
+
+        }
 
     }
 }
