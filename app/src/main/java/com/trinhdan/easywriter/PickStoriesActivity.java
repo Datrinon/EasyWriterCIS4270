@@ -29,7 +29,7 @@ public class PickStoriesActivity extends AppCompatActivity {
 
         Log.e("Test", "Game Manager Says: " + FreeWriteConfigManager.getInstance().getDiceQuantity());
 
-        // Run this on the background thread
+        // TODO: Implement this on a background thread
         // Create an ArrayList that will hold all references to every picture that a die can have.
         ArrayList<Integer> dicePictureIds = new ArrayList<>();
         for(int i = 1; i <= FreeWriteConfigManager.DIE_SIDES; i++){

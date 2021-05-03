@@ -7,7 +7,6 @@ import android.database.CursorIndexOutOfBoundsException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.util.Log;
-import android.widget.Toast;
 
 import java.text.ParseException;
 import java.util.ArrayList;
@@ -55,12 +54,13 @@ public class FreeWriteDAO {
                 int id = cursor.getInt(0);
                 Date date =  FreeWrite.DATE_FORMAT.parse(cursor.getString(1));
                 String title = cursor.getString(2);
-                String storyPic = cursor.getString(3);
-                String link = cursor.getString(4);
-                double duration = cursor.getFloat(5);
-                boolean favorite = cursor.getInt(6) == 1 ? true : false;
+                String genre = cursor.getString(3);
+                String storyPic = cursor.getString(4);
+                String filePath = cursor.getString(5);
+                double duration = cursor.getFloat(6);
+                boolean favorite = cursor.getInt(7) == 1 ? true : false;
 
-                fwList.add(new FreeWrite(id, date, title, storyPic, link, duration, favorite));
+                //fwList.add(new FreeWrite(id, date, title, storyPic, filePath, duration, favorite));
             } while (cursor.moveToNext());
         } catch(SQLiteException | ParseException | CursorIndexOutOfBoundsException e){
             Log.e("Database Error", e.getMessage());
@@ -81,7 +81,7 @@ public class FreeWriteDAO {
         fwValues.put(FreeWriteDatabaseHelper.FreewriteTable.COL_DATE, freeWrite.getDateAsString());
         fwValues.put(FreeWriteDatabaseHelper.FreewriteTable.COL_DURATION, freeWrite.getDuration());
         fwValues.put(FreeWriteDatabaseHelper.FreewriteTable.COL_FAV, freeWrite.isFavorite());
-        fwValues.put(FreeWriteDatabaseHelper.FreewriteTable.COL_LINK, freeWrite.getLink());
+        fwValues.put(FreeWriteDatabaseHelper.FreewriteTable.COL_FILEPATH, freeWrite.getFilepath());
 
         db.insert(FreeWriteDatabaseHelper.FreewriteTable.TABLE, null, fwValues);
     }

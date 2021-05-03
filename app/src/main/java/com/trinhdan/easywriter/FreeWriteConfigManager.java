@@ -2,7 +2,9 @@ package com.trinhdan.easywriter;
 
 import android.content.Context;
 import android.os.SystemClock;
+import android.util.Log;
 
+import java.util.ArrayList;
 import java.util.Locale;
 
 /*
@@ -10,19 +12,24 @@ import java.util.Locale;
  */
 public class FreeWriteConfigManager {
 
+    public static final String DEBUG_TAG = "CONFIG MANAGER";
     public static final int BASE_MINUTES = 5;
     public static final int DIE_SIDES = 116; // the font-awesome package came with 116 images.
 
+    private static int[] dicePictureIds;
     private static FreeWriteConfigManager gameManager;
 
     private long timerDuration;
-
     private long targetTime;
     private boolean timerRunning;
     private long timeLeft;
     private long durationMilliseconds;
 
     private int diceQuantity;
+
+    private String chosenGenre;
+
+    private ArrayList<Integer> chosenDieFaceList;
 
     public static FreeWriteConfigManager getInstance(){
         if (gameManager == null) {
@@ -38,6 +45,7 @@ public class FreeWriteConfigManager {
         timerRunning = false;
     }
 
+    // region Timer Related Operations
     // Starting timer after resuming activity
     public void startTimer(long millisLeft) {
         durationMilliseconds = millisLeft;
@@ -95,13 +103,6 @@ public class FreeWriteConfigManager {
         this.timerDuration = timerDuration;
     }
 
-    public int getDiceQuantity() {
-        return diceQuantity;
-    }
-
-    public void setDiceQuantity(int diceQuantity) {
-        this.diceQuantity = diceQuantity;
-    }
 
     public int getProgressPercent() {
         if (durationMilliseconds != 1000) {
@@ -114,5 +115,34 @@ public class FreeWriteConfigManager {
     public String timerToString() {
         return String.format(Locale.getDefault(), "%02d:%02d",
                 getRemainingMinutes(), getRemainingSeconds());
+    }
+
+    //endregion
+
+    //region Dice Related Operations
+    public static int[] getAllDicePictureIDs(Context context) {
+        if (dicePictureIds == null) {
+            dicePictureIds = new int[DIE_SIDES];
+            for (int i = 0; i < dicePictureIds.length; i++) {
+                dicePictureIds[i] = context.getResources().getIdentifier("pic_" + i,
+                        "drawable", "com.trinhdan.easywriter");
+            }
+        }
+        return dicePictureIds;
+    }
+    public int getDiceQuantity() {
+        return diceQuantity;
+    }
+
+    public void setDiceQuantity(int diceQuantity) {
+        this.diceQuantity = diceQuantity;
+    }
+
+    public ArrayList<Integer> getChosenDieFaceList() {
+        return chosenDieFaceList;
+    }
+
+    public void setChosenDieFaceList(ArrayList<Integer> chosenDieFaceList) {
+        this.chosenDieFaceList = chosenDieFaceList;
     }
 }

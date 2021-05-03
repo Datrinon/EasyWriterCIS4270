@@ -1,6 +1,5 @@
 package com.trinhdan.easywriter;
 
-import android.os.Debug;
 import android.util.Log;
 
 import java.text.DateFormat;
@@ -17,29 +16,30 @@ public class FreeWrite {
     private int id;
     private Date date;
     private String title;
-    private String link;
-
-
+    private String genre;
     private String storyPics;
-    private double duration;
+    private String filepath;
+    private long duration;
     private boolean favorite;
 
     public FreeWrite(){
         this.id = 0;
         this.date = new Date();
         this.title = "";
-        this.link = "";
+        this.genre = "";
         this.storyPics = "";
+        this.filepath = "";
         this.duration = 0;
         this.favorite = false;
     }
 
-    public FreeWrite(int id, Date date, String title, String storyPics, String link, double duration, boolean favorite){
+    public FreeWrite(int id, Date date, String title, String genre, String storyPics, String filepath, long duration, boolean favorite){
         this.id = id;
         this.date = date;
         this.title = title;
+        this.genre = genre;
         this.storyPics = storyPics;
-        this.link = link;
+        this.filepath = filepath;
         this.duration = duration;
         this.favorite = favorite;
     }
@@ -80,19 +80,19 @@ public class FreeWrite {
         this.title = title;
     }
 
-    public String getLink() {
-        return link;
+    public String getFilepath() {
+        return filepath;
     }
 
-    public void setLink(String link) {
-        this.link = link;
+    public void setFilepath(String filepath) {
+        this.filepath = filepath;
     }
 
     public double getDuration() {
         return duration;
     }
 
-    public void setDuration(double duration) {
+    public void setDuration(long duration) {
         this.duration = duration;
     }
 

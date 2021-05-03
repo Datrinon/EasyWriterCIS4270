@@ -10,12 +10,17 @@ import android.os.Handler;
 import android.os.Looper;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class FreeWriteActivity extends AppCompatActivity {
 
-    
+    private ViewGroup diceContainer;
+    private Button finishButton;
     private EditText writing;
     private TextView timer;
     private Handler timerHandler;
@@ -27,9 +32,11 @@ public class FreeWriteActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_free_write);
 
-        manager = FreeWriteConfigManager.getInstance(); // assign var manager to make it easier to type
+        manager = FreeWriteConfigManager.getInstance();
+        finishButton = findViewById(R.id.finish_button);
         timer = findViewById(R.id.timer);
         writing = findViewById(R.id.freewrite_area);
+        diceContainer = findViewById(R.id.story_dice_container);
 
         // Disable scrolling in the outer/parent view when focused on the TextArea
         // See more at: https://learnpainless.com/android/how-to-create-textarea-in-android/
@@ -46,9 +53,12 @@ public class FreeWriteActivity extends AppCompatActivity {
             }
         });
 
+        displayDiceImages();
         manager.startTimer();
         timerHandler = new Handler(Looper.getMainLooper());
         timerHandler.post(updateTimerRunnable);
+
+
     }
 
     @Override
@@ -96,4 +106,49 @@ public class FreeWriteActivity extends AppCompatActivity {
             }
         }
     };
+
+    private void displayDiceImages(){
+        diceContainer.removeAllViews(); // Remove template views.
+
+        int dpWidth = (int)Utility.convertDpToPixel(32, this);
+        int dpHeight = (int)Utility.convertDpToPixel(35, this);
+        int dpSpacing = (int)Utility.convertDpToPixel(7, this);
+
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(dpWidth, dpHeight, 1);
+
+        layoutParams.setMargins(dpSpacing, 0, dpSpacing, 0);
+
+        for (int i = 0; i < manager.getChosenDieFaceList().size(); i++) {
+            ImageView pic = new ImageView(this);
+
+            pic.setLayoutParams(layoutParams);
+            pic.setPadding(dpSpacing, 0, 0, 0);
+            pic.setImageResource(manager.getChosenDieFaceList().get(i));
+
+            diceContainer.addView(pic);
+        }
+    }
+
+    public void showDialogEndGame(View view) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(false);
+        builder.setMessage("Confirm submission?");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //if user pressed "yes", then he is allowed to exit from application
+                //finish();
+                //Intent to launch summary activity
+            }
+        });
+        builder.setNegativeButton("No",new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //if user select "No", just cancel this dialog and continue with app
+                dialog.cancel();
+            }
+        });
+        AlertDialog alert=builder.create();
+        alert.show();
+    }
 }

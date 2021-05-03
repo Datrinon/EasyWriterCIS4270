@@ -17,4 +17,19 @@
         <item>3 Die</item>
         <item>4 Die</item>
     </string-array>
+
+    <string-array name="genre">
+        <item>Comedy</item>
+        <item>Horror</item>
+        <item>Action</item>
+        <item>Romance</item>
+        <item>Sci Fi</item>
+        <item>Poem</item>
+        <item>How-To</item>
+        <item>Script</item>
+        <item>Self-Help</item>
+        <item>Advertisement</item>
+        <item>Crime</item>
+        <item>Parenting</item>
+    </string-array>
 </resources>
