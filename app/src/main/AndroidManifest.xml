@@ -14,7 +14,7 @@
             />
         <activity
             android:name=".FreeWriteActivity"
-            android:parentActivityName=".MainActivity"/>
+            android:parentActivityName=".FreeWriteConfigActivity"/>
         <activity
             android:name=".FreeWriteConfigActivity"
             android:label="Free Write Settings"

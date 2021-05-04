@@ -82,7 +82,12 @@ public class FreeWriteActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 // exit if yes
-                finish();
+                //finish();
+                // Instead of using finish(), use setFlags() in order to relaunch MainActivity and then clear the backstack.
+                // Source; https://developer.android.com/guide/components/activities/tasks-and-back-stack
+                Intent intent = new Intent(FreeWriteActivity.this, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
             }
         });
         builder.setNegativeButton("No",new DialogInterface.OnClickListener() {
