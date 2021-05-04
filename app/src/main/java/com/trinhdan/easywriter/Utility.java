@@ -4,6 +4,9 @@ import android.content.Context;
 import android.util.DisplayMetrics;
 
 public class Utility {
+
+    public static final String DEBUG_TAG = "Dan's Debug Logs";
+
     /**
      * This method converts dp unit to equivalent pixels, depending on device density.
      *

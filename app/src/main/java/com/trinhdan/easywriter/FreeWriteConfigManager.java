@@ -11,25 +11,26 @@ import java.util.Locale;
     Model to manage the state of the free writing exercise.
  */
 public class FreeWriteConfigManager {
+    // Constants
 
-    public static final String DEBUG_TAG = "CONFIG MANAGER";
     public static final int BASE_MINUTES = 5;
     public static final int DIE_SIDES = 116; // the font-awesome package came with 116 images.
-
+    // Class Fields
     private static int[] dicePictureIds;
     private static FreeWriteConfigManager gameManager;
-
+    // Timer-related attributes
     private long timerDuration;
     private long targetTime;
     private boolean timerRunning;
     private long timeLeft;
     private long durationMilliseconds;
-
+    // Dice-related attribute
+    private ArrayList<Integer> chosenDieFaceList;
     private int diceQuantity;
-
+    // Genre-related attribute
     private String chosenGenre;
 
-    private ArrayList<Integer> chosenDieFaceList;
+    private FreeWrite userFreeWrite;
 
     public static FreeWriteConfigManager getInstance(){
         if (gameManager == null) {
@@ -95,8 +96,9 @@ public class FreeWriteConfigManager {
         return 0;
     }
 
-    public long getTimerDuration() {
-        return timerDuration;
+    public long getTimeElapsedInSeconds(){
+        // returns old system time
+        return (SystemClock.uptimeMillis() - (targetTime - durationMilliseconds)) / 1000;
     }
 
     public void setTimerDuration(long timerDuration) {
@@ -144,5 +146,24 @@ public class FreeWriteConfigManager {
 
     public void setChosenDieFaceList(ArrayList<Integer> chosenDieFaceList) {
         this.chosenDieFaceList = chosenDieFaceList;
+    }
+    //endregion
+
+    //region Genre related operations
+    public String getChosenGenre() {
+        return chosenGenre;
+    }
+
+    public void setChosenGenre(String chosenGenre) {
+        this.chosenGenre = chosenGenre;
+    }
+
+    //region FreeWrite related operations
+    public FreeWrite getUserFreeWrite() {
+        return userFreeWrite;
+    }
+
+    public void setUserFreeWrite(FreeWrite userFreeWrite) {
+        this.userFreeWrite = userFreeWrite;
     }
 }

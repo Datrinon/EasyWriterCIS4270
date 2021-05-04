@@ -14,6 +14,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -46,9 +48,9 @@ public class FreeWriteConfigActivity extends AppCompatActivity {
         diceQuantityDialog = findViewById(R.id.dice_setting_choice);
         launchSessionButton = findViewById(R.id.Begin_Session_Button);
 
-
-        configureSpinner();
         configureSeekbar();
+        configureDiceSpinner();
+        configureGenreSpinner();
 
         // Get the default value for the seekbar and spinner, use that to customize dialog.
         int defaultMinutes = seekbar.getProgress() + FreeWriteConfigManager.BASE_MINUTES;
@@ -71,7 +73,46 @@ public class FreeWriteConfigActivity extends AppCompatActivity {
         //TODO: Use startActivityForResult to boot user to main menu if they abort by finishing this
     }
 
-    private void configureSpinner() {
+    private void configureGenreSpinner() {
+        // region Spinner Initialization for user to select genre.
+        spinner = findViewById(R.id.spinner_genre_choice);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.genre,
+                android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(adapter);
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener()
+        {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String item = (String)parent.getItemAtPosition(position);
+                switch(position){
+                    case 0: // Randomizer
+                        selectRandomGenre();
+                        break;
+                    default: //
+                        manager.setChosenGenre(item);
+
+                }
+
+            }
+
+            private void selectRandomGenre() {
+                List<String> genreList = Arrays.asList(getResources().getStringArray(R.array.genre));
+                Random rng = new Random();
+                // The first category is random, so we should remove that from rng.
+                int selection = rng.nextInt(genreList.size()-1) + 1;
+                manager.setChosenGenre(genreList.get(selection));
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+        //endregion
+    }
+
+    private void configureDiceSpinner() {
         // region Spinner Initialization for user to select dice.
         spinner = findViewById(R.id.spinner_dice_quantity);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.dice_number,

@@ -5,9 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,12 +19,18 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 public class FreeWriteActivity extends AppCompatActivity {
 
     private ViewGroup diceContainer;
     private Button finishButton;
     private EditText writing;
     private TextView timer;
+    private TextView genre;
     private Handler timerHandler;
     private FreeWriteConfigManager manager;
 
@@ -35,6 +43,7 @@ public class FreeWriteActivity extends AppCompatActivity {
         manager = FreeWriteConfigManager.getInstance();
         finishButton = findViewById(R.id.finish_button);
         timer = findViewById(R.id.timer);
+        genre = findViewById(R.id.genre);
         writing = findViewById(R.id.freewrite_area);
         diceContainer = findViewById(R.id.story_dice_container);
 
@@ -55,6 +64,9 @@ public class FreeWriteActivity extends AppCompatActivity {
 
         displayDiceImages();
         manager.startTimer();
+        //TODO test functionality of timer with a 15 second override.
+        //manager.startTimer(15000);
+        genre.setText(manager.getChosenGenre());
         timerHandler = new Handler(Looper.getMainLooper());
         timerHandler.post(updateTimerRunnable);
 
@@ -69,7 +81,7 @@ public class FreeWriteActivity extends AppCompatActivity {
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                //if user pressed "yes", then he is allowed to exit from application
+                // exit if yes
                 finish();
             }
         });
@@ -88,6 +100,8 @@ public class FreeWriteActivity extends AppCompatActivity {
         manager.stopTimer();
         // Remove any remaining Runnables that may reside in UI message queue
         timerHandler.removeCallbacks(updateTimerRunnable);
+        // Call finish activity.
+
     }
 
     private final Runnable updateTimerRunnable = new Runnable() {
@@ -132,13 +146,12 @@ public class FreeWriteActivity extends AppCompatActivity {
     public void showDialogEndGame(View view) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setCancelable(false);
-        builder.setMessage("Confirm submission?");
+        builder.setMessage("Finished with the free write?");
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                //if user pressed "yes", then he is allowed to exit from application
-                //finish();
-                //Intent to launch summary activity
+                endSession();
+                // exit if yes
             }
         });
         builder.setNegativeButton("No",new DialogInterface.OnClickListener() {
@@ -150,5 +163,37 @@ public class FreeWriteActivity extends AppCompatActivity {
         });
         AlertDialog alert=builder.create();
         alert.show();
+    }
+
+    // save the details to a FreeWrite object
+    // call an intent to start a new activity
+    private void endSession() {
+        //TODO either choose to save the getText to a string (in-memory) or perform a save and delete operation.
+        String textEntry = writing.getText().toString();
+        String storyPicString = "";
+        // To save storyPicString in the SQLite database we describe as a comma separated value
+        // Later to get the icons the user had we can split the string and then use getIdentifier()
+        for (Integer picId: manager.getChosenDieFaceList()){
+            storyPicString += getResources().getResourceEntryName(picId) + ",";
+        }
+
+        //TODO SESSION OVER ANIMATION... GAME OVER POPUP
+        FreeWrite fw = new FreeWrite(-1, new Date(), "Untitled",
+                                    manager.getChosenGenre(), storyPicString, "filepath_here",
+                                    manager.getTimeElapsedInSeconds(), false);
+
+        fw.setTextEntry(textEntry);
+
+        Log.d(Utility.DEBUG_TAG, fw.getDateAsString());
+        Log.d(Utility.DEBUG_TAG, fw.getGenre());
+        Log.d(Utility.DEBUG_TAG, String.valueOf(fw.getDuration()));
+        Log.d(Utility.DEBUG_TAG, storyPicString);
+        Log.d(Utility.DEBUG_TAG, fw.getTextEntry());
+
+        manager.setUserFreeWrite(fw);
+
+        Intent intent = new Intent(FreeWriteActivity.this, FreeWriteOverActivity.class);
+
+        startActivity(intent);
     }
 }

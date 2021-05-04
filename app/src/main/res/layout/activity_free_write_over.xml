@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FreeWriteOverActivity">
+
+    <TextView
+        android:id="@+id/success_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Session over. Great job!"
+        style="@style/Header2"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="15dp"/>
+
+    <ImageView
+        android:id="@+id/success_icon"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:src="@drawable/complete_star"
+        app:layout_constraintTop_toBottomOf="@id/success_message"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/success_prompt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Just some things before we wrap up...:"
+        style="@style/Header3"
+        app:layout_constraintTop_toBottomOf="@id/success_icon"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        />
+
+    <EditText
+        android:id="@+id/title_field"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/success_prompt"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginHorizontal="25dp"
+        android:hint="Please give your work a title."
+        android:fontFamily="casual"
+        />
+
+    <CheckBox
+        android:id="@+id/fav_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/title_field"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:text="Favorite?"
+        android:fontFamily="casual"
+        android:layout_marginLeft="25dp"
+        style="@style/Header3"/>
+
+    <Button
+        android:id="@+id/save_button"
+        style="@style/Button"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="15dp"
+        android:background="@color/orange_500"
+        android:text="Save"
+        app:layout_constraintBottom_toBottomOf="@id/discard_button"
+        app:layout_constraintLeft_toRightOf="@id/discard_button"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/fav_checkbox"
+        android:layout_marginHorizontal="25dp"/>
+
+    <Button
+        android:id="@+id/discard_button"
+        style="@style/Button"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="15dp"
+        android:background="@color/divider"
+        android:text="Discard"
+        app:layout_constraintBottom_toBottomOf="@id/save_button"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/save_button"
+        app:layout_constraintTop_toBottomOf="@id/fav_checkbox"
+        android:layout_marginHorizontal="25dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

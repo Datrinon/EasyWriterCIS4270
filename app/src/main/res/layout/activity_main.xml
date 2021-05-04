@@ -34,13 +34,17 @@
         style="@style/Button_center"
         android:layout_marginTop="25dp"
         android:text="Start Game"
-        android:drawableLeft="@drawable/pencil"/>
+        android:drawableLeft="@drawable/pencil"
+        android:background="@color/orange_500"
+        />
 
     <Button
         android:id="@+id/main_ViewHistory"
         style="@style/Button_center"
         android:text="View Previous Works"
         android:drawableLeft="@drawable/history"
+        android:layout_marginTop="15dp"
+        android:background="@color/orange_500"
         />
 
 </androidx.appcompat.widget.LinearLayoutCompat>

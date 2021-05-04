@@ -2,8 +2,10 @@ package com.trinhdan.easywriter;
 
 import android.util.Log;
 
+import java.lang.reflect.Constructor;
 import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
@@ -11,7 +13,8 @@ import java.util.Date;
  */
 public class FreeWrite {
 
-    public static final DateFormat DATE_FORMAT = DateFormat.getDateInstance();
+    public static final DateFormat DATE_FORMAT = new SimpleDateFormat("MMM. dd, yyyy hh:mm a");
+
 
     private int id;
     private Date date;
@@ -21,6 +24,8 @@ public class FreeWrite {
     private String filepath;
     private long duration;
     private boolean favorite;
+
+    private String textEntry;
 
     public FreeWrite(){
         this.id = 0;
@@ -33,6 +38,7 @@ public class FreeWrite {
         this.favorite = false;
     }
 
+    // Constructor for use in the list view of the user's previous works.
     public FreeWrite(int id, Date date, String title, String genre, String storyPics, String filepath, long duration, boolean favorite){
         this.id = id;
         this.date = date;
@@ -88,7 +94,7 @@ public class FreeWrite {
         this.filepath = filepath;
     }
 
-    public double getDuration() {
+    public long getDuration() {
         return duration;
     }
 
@@ -108,4 +114,21 @@ public class FreeWrite {
     public void setFavorite(int favoriteValue){
         this.favorite = favoriteValue >= 1 ? true : false;
     }
+
+    public String getGenre() {
+        return genre;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
+
+    public String getTextEntry() {
+        return textEntry;
+    }
+
+    public void setTextEntry(String textEntry) {
+        this.textEntry = textEntry;
+    }
+
 }
