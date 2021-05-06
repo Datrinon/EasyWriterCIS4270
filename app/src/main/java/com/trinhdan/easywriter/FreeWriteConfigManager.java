@@ -4,6 +4,14 @@ import android.content.Context;
 import android.os.SystemClock;
 import android.util.Log;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.io.Reader;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -50,7 +58,7 @@ public class FreeWriteConfigManager {
     // Starting timer after resuming activity
     public void startTimer(long millisLeft) {
         durationMilliseconds = millisLeft;
-        timerDuration = SystemClock.uptimeMillis() + durationMilliseconds;
+        targetTime = SystemClock.uptimeMillis() + durationMilliseconds;
         timerRunning = true;
     }
 
@@ -165,5 +173,62 @@ public class FreeWriteConfigManager {
 
     public void setUserFreeWrite(FreeWrite userFreeWrite) {
         this.userFreeWrite = userFreeWrite;
+    }
+
+    //region IO related operations
+
+    /**
+     * Saves the calculations to a text file.
+     */
+    public void saveToFile() {
+        PrintWriter writer = null;
+        try {
+            FileOutputStream outputStream = appContext.openFileOutput(FILENAME, Context.MODE_PRIVATE);
+            writer = new PrintWriter(outputStream);
+            for (String elem : history) {
+                writer.println(elem.trim());
+            }
+            writer.close();
+        } catch (FileNotFoundException e) {
+            Log.e(MainActivity.DEBUG_TAG_MAIN, "I/O ERROR: " + e.getMessage());
+        }
+    }
+
+    /**
+     * Reads from calculator file into memory. Adapted from Dr. Shi's TodoList example.
+     */
+    public void readFromFile() {
+        BufferedReader reader = null; // flush buffer before beginning.
+
+        try {
+            // Read in list from internal file
+            FileInputStream inputStream = appContext.openFileInput(FILENAME);
+            reader = new BufferedReader(new InputStreamReader(inputStream));
+
+            history.clear();
+
+            String line;
+            while ((line = reader.readLine()) != null) {
+                history.add(line);
+            }
+        } catch (IOException ex) { // FileNotFoundException is a subclass of IOException.
+            ex.printStackTrace();
+        } finally {
+            closeFileReader(reader);
+        }
+
+    }
+
+    /**
+     * Close the file reader. Adapted from Zybooks Java, Chapter 13.
+     */
+    private void closeFileReader(Reader fileStream) {
+        try {
+            if (fileStream != null) {
+                fileStream.close();
+            }
+        } catch (IOException e) {
+            Log.e(MainActivity.DEBUG_TAG_MAIN, "I/O ERROR: " + e.getMessage());
+        }
     }
 }

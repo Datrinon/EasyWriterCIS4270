@@ -10,4 +10,5 @@
     <color name="divider">#5BF8E2E2</color>
     <color name="icon_color">#C82F00</color>
     <color name="gray">#7C7C7C</color>
+    <color name="red">#FF0000</color>
 </resources>

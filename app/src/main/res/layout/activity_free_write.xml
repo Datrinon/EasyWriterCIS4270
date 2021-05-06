@@ -90,8 +90,8 @@
         app:layout_constraintBottom_toBottomOf="@id/hud_divider"
         app:layout_constraintHorizontal_weight="1"
         android:text="Advertisement"
-        android:textSize="18dp"
-        android:fontFamily="casual"
+        app:autoSizeTextType="uniform"
+        android:fontFamily="sans-serif-condensed-medium"
         android:textStyle="bold"
         android:gravity="center"
         />

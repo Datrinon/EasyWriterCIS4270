@@ -10,6 +10,7 @@
     <string name="story_dice_description">Story dice are visual aids meant to inspire ideas.
         Your story should attempt to fully incorporate their elements.
         How many story dice would you like to use?</string>
+    <string name="game_over">Freewrite session over! Submitting in 5 seconds...</string>
 
     <string-array name="dice_number">
         <item>1 Die</item>
