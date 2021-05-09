@@ -131,7 +131,7 @@ public class FreeWriteActivity extends AppCompatActivity {
                 timerCompleted();
             }
             else {
-                if (manager.getRemainingSeconds() == 30 && firedWarningMessage != true){ // When the timer has 30 seconds left, warn the user.
+                if (manager.getRemainingSeconds() < 30 && !firedWarningMessage){ // When the timer has 30 seconds left, warn the user.
                     firedWarningMessage = true;
                     displayTimeWarningMessage();
                 }
@@ -167,7 +167,7 @@ public class FreeWriteActivity extends AppCompatActivity {
      * Assigned action for the finish button. Opens a dialog which calls endSession().
      * @param view
      */
-    public void showDialogEndGame(View view) {
+    public void showDialogEndSession(View view) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setCancelable(false);
         builder.setMessage("Finished with the free write?");
@@ -175,6 +175,7 @@ public class FreeWriteActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 endSession();
+                timerHandler.removeCallbacks(updateTimerRunnable); // end async thread.
                 // exit if yes
             }
         });
@@ -217,8 +218,9 @@ public class FreeWriteActivity extends AppCompatActivity {
         manager.setUserFreeWrite(fw);
 
         Intent intent = new Intent(FreeWriteActivity.this, FreeWriteOverActivity.class);
-
         startActivity(intent);
+        finish(); // prevents from popping up again?
+
     }
 
 }

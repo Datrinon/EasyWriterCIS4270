@@ -22,7 +22,7 @@
         android:fontFamily="sans-serif-condensed-medium"
         style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:textSize="18sp"
-        android:onClick="showDialogEndGame"
+        android:onClick="showDialogEndSession"
         />
 
     <TextView

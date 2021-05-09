@@ -3,6 +3,7 @@ package com.trinhdan.easywriter;
 import android.content.res.Configuration;
 import android.os.Bundle;
 
+import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -37,7 +38,7 @@ public class FreeWriteListFragment extends Fragment {
             // RecyclerView -- three steps
             // 1. Reference the recycler view inside of the fragment's view
             // 2. Set a layout manager to manage how views should be recycled.
-            // 3. Set an adapter to materialize data into views for the recycler view.
+            // 3. Set an adapter to inflate data into views for the recycler view.
 
             // This is the recyclerview that is defined inside of the layout that was just inflated.
             RecyclerView recyclerView = view.findViewById(R.id.freewrite_recycler_view);
@@ -53,33 +54,36 @@ public class FreeWriteListFragment extends Fragment {
 
             return view;
         } else {
-            LinearLayout ll = new LinearLayout(getContext());
-            ll.setOrientation(LinearLayout.VERTICAL);
-
-            ImageView warningSign = new ImageView(getContext());
-            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(250, 250);
-            layoutParams.gravity=Gravity.CENTER;
-            layoutParams.topMargin = (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) ? 500 : 250;
-            warningSign.setLayoutParams(layoutParams);
-
-            warningSign.setImageResource(R.drawable.warning);
-            warningSign.requestLayout();
-
-
-            Log.d("DEBUG", "Tell the user there are no free writes");
-            TextView noFreeWritesMsg = new TextView(getContext());
-            noFreeWritesMsg.setText("No free writes found... yet. Get writing!");
-            noFreeWritesMsg.setTextSize(20);
-            noFreeWritesMsg.setGravity(Gravity.CENTER);
-
-            ll.addView(warningSign);
-            ll.addView(noFreeWritesMsg);
-
+            LinearLayoutCompat ll = new LinearLayoutCompat(getContext());
+            showEmptyScreen(ll);
             // Return this fragment to the user.
             return ll;
         }
 
 
+    }
+
+    private void showEmptyScreen(LinearLayoutCompat ll){
+        ll.setOrientation(LinearLayoutCompat.VERTICAL);
+
+        ImageView warningSign = new ImageView(getContext());
+        LinearLayoutCompat.LayoutParams layoutParams = new LinearLayoutCompat.LayoutParams(250, 250);
+        layoutParams.gravity=Gravity.CENTER;
+        layoutParams.topMargin = (getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) ? 500 : 250;
+        warningSign.setLayoutParams(layoutParams);
+
+        warningSign.setImageResource(R.drawable.warning);
+        warningSign.requestLayout();
+
+
+        Log.d("DEBUG", "Tell the user there are no free writes");
+        TextView noFreeWritesMsg = new TextView(getContext());
+        noFreeWritesMsg.setText("No free writes found... yet. Get writing!");
+        noFreeWritesMsg.setTextSize(20);
+        noFreeWritesMsg.setGravity(Gravity.CENTER);
+
+        ll.addView(warningSign);
+        ll.addView(noFreeWritesMsg);
     }
 
 //    private final View.OnClickListener buttonClickListener = new View.OnClickListener() {

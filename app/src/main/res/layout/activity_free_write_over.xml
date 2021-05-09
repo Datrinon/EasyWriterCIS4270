@@ -61,6 +61,20 @@
         android:layout_marginLeft="25dp"
         style="@style/Header3"/>
 
+    <TextView
+        android:id="@+id/no_title_error_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@id/save_button"
+        app:layout_constraintTop_toBottomOf="@id/fav_checkbox"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:text="Please give your work a title!"
+        android:fontFamily="sans-serif-condensed-medium"
+        android:textColor="@color/red"
+        android:visibility="gone"
+        />
+
     <Button
         android:id="@+id/save_button"
         style="@style/Button"
@@ -72,7 +86,7 @@
         app:layout_constraintBottom_toBottomOf="@id/discard_button"
         app:layout_constraintLeft_toRightOf="@id/discard_button"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/fav_checkbox"
+        app:layout_constraintTop_toBottomOf="@id/no_title_error_message"
         android:layout_marginHorizontal="25dp"/>
 
     <Button
@@ -86,7 +100,7 @@
         app:layout_constraintBottom_toBottomOf="@id/save_button"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/save_button"
-        app:layout_constraintTop_toBottomOf="@id/fav_checkbox"
+        app:layout_constraintTop_toBottomOf="@id/no_title_error_message"
         android:layout_marginHorizontal="25dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

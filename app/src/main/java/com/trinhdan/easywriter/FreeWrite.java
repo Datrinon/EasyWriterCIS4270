@@ -7,13 +7,14 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * Represents a free write made by the user.
  */
 public class FreeWrite {
 
-    public static final DateFormat DATE_FORMAT = new SimpleDateFormat("MMM. dd, yyyy hh:mm a");
+    public static final DateFormat DATE_FORMAT = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.getDefault());
 
 
     private int id;

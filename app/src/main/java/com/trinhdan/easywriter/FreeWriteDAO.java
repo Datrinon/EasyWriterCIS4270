@@ -50,18 +50,20 @@ public class FreeWriteDAO {
         String sql = "SELECT * FROM " + FreeWriteDatabaseHelper.FreewriteTable.TABLE + " ORDER BY date DESC";
         Cursor cursor = db.rawQuery(sql, new String[] {});
         try {
-            do {
-                int id = cursor.getInt(0);
-                Date date =  FreeWrite.DATE_FORMAT.parse(cursor.getString(1));
-                String title = cursor.getString(2);
-                String genre = cursor.getString(3);
-                String storyPic = cursor.getString(4);
-                String filePath = cursor.getString(5);
-                double duration = cursor.getFloat(6);
-                boolean favorite = cursor.getInt(7) == 1 ? true : false;
+            if (cursor.moveToFirst()) {
+                do {
+                    int id = cursor.getInt(0);
+                    Date date = FreeWrite.DATE_FORMAT.parse(cursor.getString(1));
+                    String title = cursor.getString(2);
+                    String genre = cursor.getString(3);
+                    String storyPic = cursor.getString(4);
+                    String filePath = cursor.getString(5);
+                    long duration = cursor.getInt(6);
+                    boolean favorite = cursor.getInt(7) == 1;
 
-                //fwList.add(new FreeWrite(id, date, title, storyPic, filePath, duration, favorite));
-            } while (cursor.moveToNext());
+                    fwList.add(new FreeWrite(id, date, title, genre, storyPic, filePath, duration, favorite));
+                } while (cursor.moveToNext());
+            }
         } catch(SQLiteException | ParseException | CursorIndexOutOfBoundsException e){
             Log.e("Database Error", e.getMessage());
             e.printStackTrace();
@@ -77,11 +79,13 @@ public class FreeWriteDAO {
      */
     public void insertFreeWrite(FreeWrite freeWrite) {
         ContentValues fwValues = new ContentValues();
-        fwValues.put(FreeWriteDatabaseHelper.FreewriteTable.COL_TITLE, freeWrite.getTitle());
         fwValues.put(FreeWriteDatabaseHelper.FreewriteTable.COL_DATE, freeWrite.getDateAsString());
+        fwValues.put(FreeWriteDatabaseHelper.FreewriteTable.COL_TITLE, freeWrite.getTitle());
+        fwValues.put(FreeWriteDatabaseHelper.FreewriteTable.COL_GENRE, freeWrite.getGenre());
+        fwValues.put(FreeWriteDatabaseHelper.FreewriteTable.COL_STORY_PICS, freeWrite.getStoryPics());
+        fwValues.put(FreeWriteDatabaseHelper.FreewriteTable.COL_FILEPATH, freeWrite.getFilepath());
         fwValues.put(FreeWriteDatabaseHelper.FreewriteTable.COL_DURATION, freeWrite.getDuration());
         fwValues.put(FreeWriteDatabaseHelper.FreewriteTable.COL_FAV, freeWrite.isFavorite());
-        fwValues.put(FreeWriteDatabaseHelper.FreewriteTable.COL_FILEPATH, freeWrite.getFilepath());
 
         db.insert(FreeWriteDatabaseHelper.FreewriteTable.TABLE, null, fwValues);
     }
