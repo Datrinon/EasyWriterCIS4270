@@ -1,14 +1,218 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".FreeWriteDetailsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
+    <Button
+        android:id="@+id/exit_detail_button"
+        style="@style/Button_Bottom_Caption"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/detail_story_name"
+        app:layout_constraintBottom_toTopOf="@id/timestamp_header"
+        android:drawableTop="@drawable/return_icon"
+        android:paddingBottom="0dp"
+        android:text="RETURN"
+        app:layout_constraintHorizontal_weight="2"
+        />
+
+
+    <TextView
+        android:id="@+id/detail_story_name"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Story Title"
+        style="@style/Header2"
+        android:autoSizeTextType="uniform"
+        android:layout_marginTop="15dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/exit_detail_button"
+        app:layout_constraintRight_toLeftOf="@id/favorite_button"
+        app:layout_constraintHorizontal_weight="6"/>
+
+    <Button
+        android:id="@+id/favorite_button"
+        style="@style/Button_Bottom_Caption"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/detail_story_name"
+        app:layout_constraintRight_toRightOf="@id/recycle_button"
+        app:layout_constraintBottom_toTopOf="@id/duration_header"
+        android:drawableTop="@drawable/favorite_line"
+        android:drawablePadding="-4dp"
+        android:text="Favorite"
+        android:textSize="8sp"
+        android:paddingBottom="0dp"
+        android:paddingHorizontal="0dp"
+        app:layout_constraintHorizontal_weight="1"
+        />
+
+    <Button
+        android:id="@+id/recycle_button"
+        style="@style/Button_Bottom_Caption"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toRightOf="@id/favorite_button"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/duration_header"
+        android:drawableTop="@drawable/delete"
+        android:drawablePadding="-4dp"
+        android:text="Delete"
+        android:textSize="8sp"
+        android:paddingBottom="0dp"
+        android:paddingHorizontal="0dp"
+        app:layout_constraintHorizontal_weight="1"
+        />
+
+
+    <TextView
+        android:id="@+id/timestamp_header"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-condensed-medium"
+        android:text="Written on"
+        android:textStyle="italic|bold"
+        app:layout_constraintTop_toBottomOf="@id/detail_story_name"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/duration_header"
+        app:layout_constraintHorizontal_weight="1"
+        android:gravity="center"
+        />
+
+    <TextView
+        android:id="@+id/duration_header"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Duration"
+        android:textStyle="italic|bold"
+        android:fontFamily="sans-serif-condensed-medium"
+        app:layout_constraintLeft_toRightOf="@id/timestamp_header"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/detail_story_name"
+        app:layout_constraintHorizontal_weight="1"
+        android:gravity="center"
+        />
+
+    <TextView
+        android:id="@+id/timestamp_textview"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Jan. 01, 2021 12:24 PDT"
+        android:textFontWeight="450"
+        app:layout_constraintTop_toBottomOf="@id/timestamp_header"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@id/duration_textview"
+        android:fontFamily="sans-serif-condensed-medium"
+        app:layout_constraintHorizontal_weight="1"
+        android:gravity="center"
+        />
+
+
+
+    <TextView
+        android:id="@+id/duration_textview"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="%d minutes, %d seconds"
+        android:fontFamily="sans-serif-condensed-medium"
+        android:textFontWeight="450"
+        app:layout_constraintLeft_toRightOf="@id/timestamp_textview"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/duration_header"
+        app:layout_constraintHorizontal_weight="1"
+        android:gravity="center"
+        />
+
+    <TextView
+        android:id="@+id/genre_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Genre"
+        android:textStyle="italic|bold"
+        android:fontFamily="sans-serif-condensed-medium"
+        android:layout_marginTop="15dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/duration_textview"/>
+
+    <TextView
+        android:id="@+id/genre_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Genre Here"
+        android:fontFamily="sans-serif-condensed-medium"
+        android:textFontWeight="450"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/genre_header"/>
+
+    <TextView
+        android:id="@+id/story_dice_header"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Story Dice"
+        android:textStyle="italic|bold"
+        android:fontFamily="sans-serif-condensed-medium"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/genre_textview"
+        android:layout_marginTop="15dp"
+        />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/story_dice_container_detailview"
+        android:layout_width="wrap_content"
+        android:layout_height="32dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/story_dice_header"
+        android:gravity="center_horizontal"
+        app:divider="@drawable/abc_vector_test"
+        app:showDividers="middle"
+        android:layout_marginTop="3dp"
+        >
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/pic_1"
+            />
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/pic_1"
+            />
+        <ImageView
+            android:layout_width="32dp"
+            android:layout_height="match_parent"
+            android:src="@drawable/pic_1"
+            />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <View
+        android:id="@+id/hud_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#c0c0c0"
+        app:layout_constraintTop_toBottomOf="@id/story_dice_container_detailview"
+        android:layout_marginTop="10dp"
+        android:layout_marginHorizontal="25dp"
+        />
+
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="0dp"
+        android:layout_margin="15dp"
+        app:layout_constraintTop_toBottomOf="@id/hud_divider"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:scrollbars="vertical"
+        android:fontFamily="casual"
+        android:text="Story goes here."
+        android:textFontWeight="550"
+        />
 
-</FrameLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
