@@ -17,7 +17,10 @@ public class FreeWriteConfigManager {
     // Class Fields
     private static int[] dicePictureIds;
     private static FreeWriteConfigManager gameManager;
+
+
     // Timer-related attributes
+    private long sessionStartTime;
     private long timerDuration;
     private long targetTime;
     private boolean timerRunning;
@@ -99,11 +102,6 @@ public class FreeWriteConfigManager {
         return 0;
     }
 
-    public long getTimeElapsedInSeconds(){
-        // returns old system time
-        return (SystemClock.uptimeMillis() - (targetTime - durationMilliseconds)) / 1000;
-    }
-
     public void setTimerDuration(long timerDuration) {
         this.timerDuration = timerDuration;
     }
@@ -120,6 +118,14 @@ public class FreeWriteConfigManager {
     public String timerToString() {
         return String.format(Locale.getDefault(), "%02d:%02d",
                 getRemainingMinutes(), getRemainingSeconds());
+    }
+
+    public long getSessionStartTime() {
+        return sessionStartTime;
+    }
+
+    public void setSessionStartTime(long sessionStartTime) {
+        this.sessionStartTime = sessionStartTime;
     }
 
     //endregion

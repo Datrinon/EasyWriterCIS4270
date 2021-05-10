@@ -1,5 +1,6 @@
 package com.trinhdan.easywriter.controllers;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -10,6 +11,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -28,6 +30,8 @@ import com.trinhdan.easywriter.Utility;
 import java.util.Date;
 
 public class FreeWriteActivity extends AppCompatActivity {
+
+    private final String KEY_TIME_REMAINING = "timeRemaining";
 
     private ViewGroup diceContainer;
     private EditText writing;
@@ -63,8 +67,15 @@ public class FreeWriteActivity extends AppCompatActivity {
             }
         });
 
+
+        if (savedInstanceState != null){
+            manager.startTimer(savedInstanceState.getLong(KEY_TIME_REMAINING));
+        } else {
+            manager.setSessionStartTime(SystemClock.uptimeMillis());
+            manager.startTimer();
+        }
+
         displayDiceImages();
-        manager.startTimer();
         //manager.startTimer(35000); // Debug
         genre.setText(manager.getChosenGenre());
         timerHandler = new Handler(Looper.getMainLooper());
@@ -188,6 +199,7 @@ public class FreeWriteActivity extends AppCompatActivity {
      * to the manager, and then starts the 'Over' Activity.
      */
     private void endSession() {
+        long sessionDuration = (SystemClock.uptimeMillis() - manager.getSessionStartTime()) / 1000;
         // remove any callbacks on the timer
         // this prevents a new activity from being spawned if the user decides to leave the session early.
         timerHandler.removeCallbacks(updateTimerRunnable);
@@ -202,7 +214,7 @@ public class FreeWriteActivity extends AppCompatActivity {
         //  create a freewrite object with some dummy data to be filled in, in the next activity.
         FreeWrite fw = new FreeWrite(-1, new Date(), "Untitled",
                                     manager.getChosenGenre(), storyPicString, "filepath_here",
-                                    manager.getTimeElapsedInSeconds(), false);
+                                    sessionDuration, false);
 
         fw.setTextEntry(textEntry);
 
@@ -220,5 +232,16 @@ public class FreeWriteActivity extends AppCompatActivity {
         finish(); // prevents from popping up again?
 
     }
+
+    // When rotating
+    // The timer isn't saved
+    // So we should save the milliseconds left in this object.
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState) {
+        timerHandler.removeCallbacks(updateTimerRunnable);
+        super.onSaveInstanceState(outState);
+        outState.putLong(KEY_TIME_REMAINING, manager.getRemainingMilliseconds());
+    }
+
 
 }

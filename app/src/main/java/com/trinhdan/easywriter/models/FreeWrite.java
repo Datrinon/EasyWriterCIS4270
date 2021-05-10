@@ -96,10 +96,16 @@ public class FreeWrite {
         this.filepath = filepath;
     }
 
+    /**
+     * Duration is time in seconds.
+     */
     public long getDuration() {
         return duration;
     }
 
+    /**
+     * Duration is time in seconds.
+     */
     public void setDuration(long duration) {
         this.duration = duration;
     }
