@@ -124,6 +124,7 @@ public class FreeWriteListFragment extends Fragment {
         private FreeWrite freeWrite;
 
         private TextView titleTextView;
+        private TextView dateTextView;
 
         public FreeWriteHolder(LayoutInflater inflater, ViewGroup parent) {
             // parent constructor takes in a View.
@@ -133,11 +134,14 @@ public class FreeWriteListFragment extends Fragment {
             super(inflater.inflate(R.layout.list_item_freewrite, parent, false));
             itemView.setOnClickListener(this);
             titleTextView = itemView.findViewById(R.id.freeWriteTitle);
+            dateTextView = itemView.findViewById(R.id.freeWriteDate);
         }
 
         public void bind(FreeWrite fw) {
             freeWrite = fw;
             titleTextView.setText(fw.getTitle());
+            dateTextView.setText(fw.getShortDateForDisplay());
+
         }
 
         @Override

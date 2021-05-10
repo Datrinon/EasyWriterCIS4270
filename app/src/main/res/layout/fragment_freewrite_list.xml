@@ -1,7 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.recyclerview.widget.RecyclerView
+
+<androidx.appcompat.widget.LinearLayoutCompat
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/freewrite_recycler_view"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" />
+     android:layout_height="match_parent"
+     android:layout_width="match_parent"
+        android:orientation="vertical"
+    >
+
+    <TextView
+        android:layout_marginTop="15dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="My Previous Works"
+        style="@style/Header2"
+        android:layout_gravity="center"
+        />
+
+    <View
+        android:id="@+id/hud_divider"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray"
+        android:layout_marginTop="10dp"
+        android:layout_marginHorizontal="25dp"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/freewrite_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
+</androidx.appcompat.widget.LinearLayoutCompat>
 
