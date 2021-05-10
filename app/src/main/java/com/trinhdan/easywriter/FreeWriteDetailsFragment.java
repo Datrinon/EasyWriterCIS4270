@@ -1,5 +1,6 @@
 package com.trinhdan.easywriter;
 
+import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -21,6 +22,7 @@ import java.util.Objects;
 
 public class FreeWriteDetailsFragment extends Fragment {
 
+    public static final String EXTRA_FREEWRITE_ID = "com.trinhdan.easywriter.ID";
     private static String KEY_FREEWRITE_ID= "freeWriteID";
 
     Button returnButton;
@@ -102,11 +104,14 @@ public class FreeWriteDetailsFragment extends Fragment {
                     public void onClick(DialogInterface dialog, int which) {
                         // TODO Delete the record in the database associated with this and close the activity; update the arraylist too.
                         boolean deleteSuccessful = FreeWriteDAO.getInstance(getContext()).deleteFreeWrite(freeWrite);
-
+//                        boolean deleteSuccessful = true; // debug
                         if (deleteSuccessful) {
+                            Intent intent = new Intent();
+                            intent.putExtra(EXTRA_FREEWRITE_ID, freeWrite.getId());
+                            getActivity().setResult(Activity.RESULT_OK, intent);
                             getActivity().finish();
                         } else {
-                            Toast.makeText(getContext(), "Deletion failed. ", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getContext(), "Deletion failed!", Toast.LENGTH_SHORT).show();
                         }
 
                         //finish(); // return to summary view.

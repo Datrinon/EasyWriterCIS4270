@@ -1,11 +1,15 @@
 package com.trinhdan.easywriter;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.ListFragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,6 +28,8 @@ import java.util.List;
 public class FreeWriteListFragment extends Fragment {
 
     private List<FreeWrite> freeWrites;
+    private RecyclerView recyclerView;
+    private FreeWriteAdapter adapter;
 
     // For the activity to implement
     public interface OnFreeWriteSelectedListener {
@@ -50,11 +56,11 @@ public class FreeWriteListFragment extends Fragment {
             // 3. Set an adapter to inflate data into views for the recycler view.
 
             // This is the recyclerview that is defined inside of the layout that was just inflated.
-            RecyclerView recyclerView = view.findViewById(R.id.freewrite_recycler_view);
+            recyclerView = view.findViewById(R.id.freewrite_recycler_view);
             // Set the layout manager the recycler view will use
             recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
             // Set adapter for the recyclerview to use.
-            FreeWriteAdapter adapter = new FreeWriteAdapter(FreeWriteDAO.getInstance(getContext()).fetchAllFreeWrites());
+            adapter = new FreeWriteAdapter(FreeWriteDAO.getInstance(getContext()).fetchAllFreeWrites());
             recyclerView.setAdapter(adapter);
 
             DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
@@ -170,5 +176,35 @@ public class FreeWriteListFragment extends Fragment {
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
 
+        Bundle bundle = this.getArguments();
+        if (bundle != null && bundle.getInt("DeleteID", -1) != -1){
+            Log.d(Utility.DEBUG_TAG, "Delete entry successfully passed to fragment");
+            removeFreeWrite(bundle.getInt("DeleteID"));
+
+            if (freeWrites.size() == 0) {
+                this.setArguments(null);
+                // if free writes are 0 after deletion, recreate the view to show an empty sign.
+//                getFragmentManager().beginTransaction().detach(FreeWriteListFragment.this)
+//                        .attach(FreeWriteListFragment.this).commit();
+                getFragmentManager().beginTransaction().replace(R.id.list_fragment_container, new FreeWriteListFragment()).commit();
+            }
+        }
+    }
+
+    private void removeFreeWrite(int freeWriteID){
+        for (int i = 0; i < freeWrites.size(); i++){
+            if (freeWrites.get(i).getId() == freeWriteID) {
+                freeWrites.remove(i);
+                break;
+            }
+        }
+
+        adapter = new FreeWriteAdapter(freeWrites);
+
+        recyclerView.setAdapter(adapter);
+    }
 }

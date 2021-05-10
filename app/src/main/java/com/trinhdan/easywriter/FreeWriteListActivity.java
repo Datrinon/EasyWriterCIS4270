@@ -1,17 +1,22 @@
 package com.trinhdan.easywriter;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
-// Follow fragment code for a master - detail sort of ordeal.
+
 public class FreeWriteListActivity extends AppCompatActivity implements FreeWriteListFragment.OnFreeWriteSelectedListener {
 
     private static final String KEY_FREEWRITE_ID = "FreeWriteID";
+    private final int REQUEST_CODE_DETAIL = 0;
     private int freeWriteID;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +37,8 @@ public class FreeWriteListActivity extends AppCompatActivity implements FreeWrit
     }
 
     /**
-     * Observer pattern decouples logic to launch the DetailActivity from the DetailFragment.
+     * Callback when a list entry is clicked on -- see the fragment for more details.
+     * Utilizes Observer pattern to observe its fragment.
      */
     @Override
     public void onFreeWriteSelected(int fwID) {
@@ -42,7 +48,7 @@ public class FreeWriteListActivity extends AppCompatActivity implements FreeWrit
         // Send the freewrite ID of the clicked button to DetailsActivity
         Intent intent = new Intent(this, FreeWriteDetailsActivity.class);
         intent.putExtra(FreeWriteDetailsActivity.EXTRA_FREEWRITE_ID, freeWriteID);
-        startActivity(intent);
+        startActivityForResult(intent, REQUEST_CODE_DETAIL);
     }
 
     // This method is for later when we implement tablet view.
@@ -53,6 +59,21 @@ public class FreeWriteListActivity extends AppCompatActivity implements FreeWrit
         // Save state when something is selected
         if (freeWriteID != -1) {
             savedInstanceState.putInt(KEY_FREEWRITE_ID, freeWriteID);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK && requestCode == REQUEST_CODE_DETAIL) {
+            int deleteId = data.getIntExtra(FreeWriteDetailsFragment.EXTRA_FREEWRITE_ID, -1);
+
+            Bundle bundle = new Bundle();
+            bundle.putInt("DeleteID", deleteId);
+
+            getSupportFragmentManager().findFragmentById(R.id.list_fragment_container).setArguments(bundle);
+
         }
     }
 }

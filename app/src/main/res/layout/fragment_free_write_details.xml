@@ -215,9 +215,10 @@
         android:scrollbars="vertical"
         android:fontFamily="casual"
         android:text="Story goes here."
-        android:textFontWeight="700"
+        android:textFontWeight="500"
         android:textColor="@color/black"
         android:textSize="19sp"
+        android:textIsSelectable="true"
         />
 
 
