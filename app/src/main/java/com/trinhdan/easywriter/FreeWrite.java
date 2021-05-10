@@ -15,7 +15,7 @@ import java.util.Locale;
 public class FreeWrite {
 
     public static final DateFormat DATE_FORMAT = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.getDefault());
-
+    public static final DateFormat DATE_FORMAT_DISPLAY = new SimpleDateFormat("HH:mm EEE MMM dd, yyyy", Locale.getDefault());
 
     private int id;
     private Date date;
@@ -66,6 +66,8 @@ public class FreeWrite {
     public String getDateAsString() {
         return date.toString();
     }
+
+    public String getDateForDisplay() {return DATE_FORMAT_DISPLAY.format(date);}
 
     public void setDate(Date date) {
         this.date = date;
@@ -132,4 +134,11 @@ public class FreeWrite {
         this.textEntry = textEntry;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 }

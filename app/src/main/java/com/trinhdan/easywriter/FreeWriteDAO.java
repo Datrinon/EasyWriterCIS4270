@@ -20,8 +20,6 @@ import java.util.List;
     Adheres to singleton pattern seen in Section 5.3 - Band Database App
  */
 public class FreeWriteDAO {
-// note: in 3150 we learnt that a DAO was implemented with an interface...
-// but I feel that is not necessary given there is only one class to manage the access to the freewrite db table.
 
     // for working with database. the object itself, the helper, and the db.
     private static FreeWriteDAO freeWriteDAO;
@@ -40,6 +38,34 @@ public class FreeWriteDAO {
         dbHelper = new FreeWriteDatabaseHelper(context);
         db = dbHelper.getWritableDatabase(); // a 'writable' database can be used for reading and writing.
     }
+
+    public FreeWrite fetchFreeWriteByID(int freewriteId) {
+        FreeWrite fw = new FreeWrite();
+        String sql = "SELECT * FROM " + FreeWriteDatabaseHelper.FreewriteTable.TABLE + " WHERE " + FreeWriteDatabaseHelper.FreewriteTable.COL_ID + " = ?";
+        Cursor cursor = db.rawQuery(sql, new String[] {String.valueOf(freewriteId)});
+        try {
+            if (cursor.moveToFirst()) {
+                    int id = cursor.getInt(0);
+                    Date date = FreeWrite.DATE_FORMAT.parse(cursor.getString(1));
+                    String title = cursor.getString(2);
+                    String genre = cursor.getString(3);
+                    String storyPic = cursor.getString(4);
+                    String filePath = cursor.getString(5);
+                    long duration = cursor.getInt(6);
+                    boolean favorite = cursor.getInt(7) == 1;
+
+                    fw = new FreeWrite(id, date, title, genre, storyPic, filePath, duration, favorite);
+            }
+        } catch(SQLiteException | ParseException | CursorIndexOutOfBoundsException e){
+            Log.e("Database Error", e.getMessage());
+            e.printStackTrace();
+        } finally {
+            cursor.close();
+        }
+
+        return fw;
+    }
+
 
     /**
      * Gets all free write entries from the database sorted by the most recent one.
@@ -90,6 +116,22 @@ public class FreeWriteDAO {
         db.insert(FreeWriteDatabaseHelper.FreewriteTable.TABLE, null, fwValues);
     }
 
+    public void updateFreeWriteFavorite(FreeWrite freeWrite) {
 
+        ContentValues values = new ContentValues();
+        values.put(FreeWriteDatabaseHelper.FreewriteTable.COL_FAV, freeWrite.isFavorite());
+
+        db.update(FreeWriteDatabaseHelper.FreewriteTable.TABLE, values,
+                FreeWriteDatabaseHelper.FreewriteTable.COL_ID + " = ?",
+                new String[] {Integer.toString(freeWrite.getId())});
+    }
+
+    public boolean deleteFreeWrite(FreeWrite freeWrite) {
+        int rowsDeleted = db.delete(FreeWriteDatabaseHelper.FreewriteTable.TABLE,
+                        FreeWriteDatabaseHelper.FreewriteTable.COL_ID + " = ?",
+                                    new String[] {Integer.toString(freeWrite.getId())});
+
+        return rowsDeleted > 0;
+    }
 
 }

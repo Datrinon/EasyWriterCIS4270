@@ -1,5 +1,6 @@
 package com.trinhdan.easywriter;
 
+import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Bundle;
 
@@ -23,6 +24,14 @@ import java.util.List;
 public class FreeWriteListFragment extends Fragment {
 
     private List<FreeWrite> freeWrites;
+
+    // For the activity to implement
+    public interface OnFreeWriteSelectedListener {
+        void onFreeWriteSelected(int bandId);
+    }
+
+    // Reference to the activity
+    private OnFreeWriteSelectedListener listener;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -86,14 +95,23 @@ public class FreeWriteListFragment extends Fragment {
         ll.addView(noFreeWritesMsg);
     }
 
-//    private final View.OnClickListener buttonClickListener = new View.OnClickListener() {
-//        @Override
-//        public void onClick(View view) {
-//            // Start DetailsActivity
-//            Intent intent = new Intent(getActivity(), DetailsActivity.class);
-//            startActivity(intent);
-//        }
-//    };
+    @Override
+    public void onAttach(Context context) { // Context refers to the activity that started the fragment.
+        super.onAttach(context);
+        if (context instanceof OnFreeWriteSelectedListener) {
+            listener = (OnFreeWriteSelectedListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFreeWriteSelectedListener");
+        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        listener = null;
+    }
+
 
     private class FreeWriteHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
@@ -121,6 +139,8 @@ public class FreeWriteListFragment extends Fragment {
             // Tell ListActivity what band was clicked, so it can launch the detailActivity.
             //mListener.onFreeWriteSelected(FreeWrite.getId());
             // TODO when we implement the detailActivity.
+            listener.onFreeWriteSelected(freeWrite.getId());
+
         }
     }
 

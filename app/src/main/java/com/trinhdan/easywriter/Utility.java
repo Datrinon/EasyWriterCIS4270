@@ -76,15 +76,15 @@ public class Utility {
      * Reads from text file into memory. For use in detail view.
      * Adapted from Dr. Shi's TodoList example.
      */
-    public static void readFromFile(Context appContext, FreeWrite userFreeWrite) {
+    public static String readFromFile(Context appContext, FreeWrite userFreeWrite) {
         BufferedReader reader = null; // flush buffer before beginning.
+        StringBuilder textEntry = new StringBuilder();
 
         try {
             // Read in list from internal file
             FileInputStream inputStream = appContext.openFileInput(userFreeWrite.getFilepath());
             reader = new BufferedReader(new InputStreamReader(inputStream));
 
-            StringBuilder textEntry = new StringBuilder();
             CharSequence line;
             while ((line = reader.readLine()) != null) {
                 textEntry.append(line).append("\n");
@@ -96,6 +96,7 @@ public class Utility {
             closeFileReader(reader);
         }
 
+        return textEntry.toString();
     }
 
     /**

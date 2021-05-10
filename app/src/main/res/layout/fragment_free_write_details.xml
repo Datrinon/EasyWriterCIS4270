@@ -114,7 +114,7 @@
         android:id="@+id/duration_textview"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="%d minutes, %d seconds"
+        android:text="@string/detail_duration_string"
         android:fontFamily="sans-serif-condensed-medium"
         android:textFontWeight="450"
         app:layout_constraintLeft_toRightOf="@id/timestamp_textview"
@@ -204,6 +204,7 @@
         />
 
     <TextView
+        android:id="@+id/story_textview"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_margin="15dp"
@@ -214,7 +215,9 @@
         android:scrollbars="vertical"
         android:fontFamily="casual"
         android:text="Story goes here."
-        android:textFontWeight="550"
+        android:textFontWeight="700"
+        android:textColor="@color/black"
+        android:textSize="19sp"
         />
 
 

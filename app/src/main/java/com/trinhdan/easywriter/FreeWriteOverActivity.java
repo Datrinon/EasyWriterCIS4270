@@ -25,7 +25,7 @@ public class FreeWriteOverActivity extends AppCompatActivity {
     Button discardButton;;
     Button saveButton;
     ImageView starGFX; //TODO: Add an animation on this guy and fireworks animation if possible
-    FreeWriteConfigManager manager;
+    FreeWriteConfigManager manager; //TODO: Reset the manager after the over screen is finished.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,7 +110,7 @@ public class FreeWriteOverActivity extends AppCompatActivity {
         @Override
         public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
             AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
-            builder.setTitle("Success");
+            builder.setTitle("Save Successful!");
             builder.setMessage("Freewrite successfully saved. Press OK to return to main menu.");
             builder.setPositiveButton("OK",
                     new DialogInterface.OnClickListener() {

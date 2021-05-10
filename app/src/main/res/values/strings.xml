@@ -11,6 +11,7 @@
         Your story should attempt to fully incorporate their elements.
         How many story dice would you like to use?</string>
     <string name="game_over">Freewrite session over! Submitting in 5 seconds...</string>
+    <string name="detail_duration_string">%d minutes, %d seconds</string>
 
     <string-array name="dice_number">
         <item>1 Die</item>
@@ -25,6 +26,7 @@
         <item>None</item>
         <item>Comedy</item>
         <item>Horror</item>
+        <item>Rant</item>
         <item>Action</item>
         <item>Romance</item>
         <item>Sci Fi</item>
