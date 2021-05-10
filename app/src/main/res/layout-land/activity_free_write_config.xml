@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/config_graphic"
+        android:layout_width="600dp"
+        android:layout_height="600dp"
+        android:layout_gravity="center_horizontal"
+        android:background="@drawable/settings" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".controllers.FreeWriteConfigActivity">
+
+        <TextView
+            android:id="@+id/config_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/Header2"
+            android:fontFamily="sans-serif-condensed"
+            android:text="Configure Free Write Session"
+            android:layout_marginTop="15dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/duration_column"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:orientation="vertical"
+            android:layout_marginHorizontal="5dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/config_title"
+            app:layout_constraintRight_toLeftOf="@id/story_dice_column"
+            app:layout_constraintBottom_toTopOf="@id/Begin_Session_Button"
+            app:layout_constraintHorizontal_weight="1"
+            >
+
+            <TextView
+                android:id="@+id/config_duration_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Duration"
+                android:layout_gravity="center"
+                android:fontFamily="sans-serif-condensed-medium"
+                android:textSize="25sp"
+                android:layout_weight="1"
+                />
+            <TextView
+                android:id="@+id/config_duration_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="How long should the free write session last?"
+                android:textAlignment="center"
+                android:fontFamily="sans-serif-condensed"
+                android:textStyle="italic"
+                android:layout_weight="2"
+                />
+
+            <SeekBar
+                android:id="@+id/timer_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/TimerSeekBar"
+                android:max="6"
+                android:progress="3"
+                android:layout_weight="2"
+                />
+
+            <TextView
+                android:id="@+id/timer_setting_choice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/timer_choice_dialog"
+                android:fontFamily="sans-serif-condensed"
+                android:gravity="top|center"
+                android:textStyle="bold"
+                android:layout_weight="20"
+                />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/story_dice_column"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="5dp"
+            app:layout_constraintLeft_toRightOf="@id/duration_column"
+            app:layout_constraintTop_toBottomOf="@id/config_title"
+            app:layout_constraintRight_toLeftOf="@id/genre_column"
+            app:layout_constraintBottom_toTopOf="@id/Begin_Session_Button"
+            android:orientation="vertical"
+            app:layout_constraintHorizontal_weight="1"
+            >
+
+            <TextView
+                android:id="@+id/dice_quantity_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Story Dice"
+                android:fontFamily="sans-serif-condensed-medium"
+                android:textSize="25sp"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                />
+
+            <TextView
+                android:id="@+id/dice_quantity_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/story_dice_description"
+                android:fontFamily="sans-serif-condensed"
+                android:textStyle="italic"
+                android:textAlignment="center"
+                android:layout_weight="2"
+                />
+
+            <Spinner
+                android:id="@+id/spinner_dice_quantity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                />
+
+            <TextView
+                android:id="@+id/dice_setting_choice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/dice_choice_dialog"
+                android:fontFamily="sans-serif-condensed"
+                android:gravity="top|center"
+                android:textStyle="bold"
+                android:layout_weight="20"
+                />
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/genre_column"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="5dp"
+            app:layout_constraintLeft_toRightOf="@+id/story_dice_column"
+            app:layout_constraintTop_toBottomOf="@id/config_title"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/Begin_Session_Button"
+            android:orientation="vertical"
+            app:layout_constraintHorizontal_weight="1"
+            >
+
+            <TextView
+                android:id="@+id/genre_choice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-condensed-medium"
+                android:text="Genre"
+                android:gravity="center"
+                android:textSize="25sp"
+                />
+
+            <TextView
+                android:id="@+id/genre_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:fontFamily="sans-serif-condensed"
+                android:textStyle="italic"
+                android:text="What sort of genre would you like for your freewrite?"
+                />
+
+            <Spinner
+                android:id="@+id/spinner_genre_choice"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                />
+
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+
+
+
+
+        <Button
+            android:id="@+id/Begin_Session_Button"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_marginHorizontal="50dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="50dp"
+            style="@style/Button"
+            android:text="Begin Writing"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>

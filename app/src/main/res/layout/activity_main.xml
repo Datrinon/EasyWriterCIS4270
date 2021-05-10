@@ -47,6 +47,7 @@
         style="@style/Button_center"
         android:text="View Previous Works"
         android:drawableLeft="@drawable/history"
+        android:paddingLeft="5dp"
         android:layout_marginTop="15dp"
         android:background="@color/orange_500"
         />
