@@ -26,8 +26,8 @@ public class FreeWriteOverActivity extends AppCompatActivity {
     CheckBox markedFavorite;
     Button discardButton;;
     Button saveButton;
-    ImageView starGFX; //TODO: Add an animation on this guy and fireworks animation if possible
-    FreeWriteConfigManager manager; //TODO: Reset the manager after the over screen is finished.
+    ImageView starGFX;
+    FreeWriteConfigManager manager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,38 +42,9 @@ public class FreeWriteOverActivity extends AppCompatActivity {
         manager = FreeWriteConfigManager.getInstance();
 
         discardButton.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
-
-                // Supposedly hides the keyboard. Let's see
-                InputMethodManager imm = (InputMethodManager) getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), InputMethodManager.HIDE_IMPLICIT_ONLY);
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(FreeWriteOverActivity.this);
-                builder.setCancelable(false);
-                builder.setMessage("Are you really sure you want to discard this free write?");
-                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        // exit if yes
-                        //finish();
-                        // Instead of using finish(), use setFlags() in order to relaunch MainActivity and then clear the backstack.
-                        // See more at: https://developer.android.com/guide/components/activities/tasks-and-back-stack
-                        Intent intent = new Intent(FreeWriteOverActivity.this, MainActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                        startActivity(intent);
-                    }
-                });
-                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        //if user select "No", just cancel this dialog and continue with app
-                        dialog.cancel();
-                    }
-                });
-                AlertDialog alert = builder.create();
-                alert.show();
+                displayDiscardMessage();
             }
         });
 
@@ -96,6 +67,8 @@ public class FreeWriteOverActivity extends AppCompatActivity {
                     dialog.show(getSupportFragmentManager(), "SuccessDialog");
                     // 3: User presses OK on dialog to go back to main activity screen.
                     // ... this occurs in the dialog.
+                    // 4: Lastly, terminate the session.
+                    manager.terminateManager();
                 }
             }
         });
@@ -104,31 +77,45 @@ public class FreeWriteOverActivity extends AppCompatActivity {
         animateStar();
     }
 
+    private void displayDiscardMessage() {
+        // Supposedly hides the keyboard. Let's see
+        InputMethodManager imm = (InputMethodManager) getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), InputMethodManager.HIDE_IMPLICIT_ONLY);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(FreeWriteOverActivity.this);
+        builder.setCancelable(false);
+        builder.setMessage("Are you really sure you want to discard this free write?");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                manager.terminateManager();
+                // exit if yes
+                //finish();
+                // Instead of using finish(), use setFlags() in order to relaunch MainActivity and then clear the backstack.
+                // See more at: https://developer.android.com/guide/components/activities/tasks-and-back-stack
+                Intent intent = new Intent(FreeWriteOverActivity.this, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+            }
+        });
+        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //if user select "No", just cancel this dialog and continue with app
+                dialog.cancel();
+            }
+        });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
     private boolean checkTitleFieldNotEmpty() {
         return (givenTitle.getText().length() > 0);
     }
 
-
-
-    public static class OKDialogFragment extends DialogFragment {
-        @NonNull
-        @Override
-        public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-            AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
-            builder.setTitle("Save Successful!");
-            builder.setMessage("Freewrite successfully saved. Press OK to return to main menu.");
-            builder.setPositiveButton("OK",
-                    new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            Intent intent = new Intent(getContext(),
-                                    MainActivity.class);
-                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            startActivity(intent);
-                        }
-                    });
-            return builder.create();
-        }
+    @Override
+    public void onBackPressed() {
+        displayDiscardMessage();
     }
 
     private void animateStar(){
@@ -155,4 +142,27 @@ public class FreeWriteOverActivity extends AppCompatActivity {
         animSet.play(scaleStarX).with(scaleStarY).after(enlargenStarY);
         animSet.start();
     }
+
+    public static class OKDialogFragment extends DialogFragment {
+        @NonNull
+        @Override
+        public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(requireActivity());
+            builder.setTitle("Save Successful!");
+            builder.setMessage("Freewrite successfully saved. Press OK to return to main menu.");
+            builder.setPositiveButton("OK",
+                    new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Intent intent = new Intent(getContext(),
+                                    MainActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(intent);
+                        }
+                    });
+            return builder.create();
+        }
+    }
+
+
 }

@@ -70,7 +70,6 @@ public class FreeWriteConfigActivity extends AppCompatActivity {
             Intent intent = new Intent(FreeWriteConfigActivity.this, FreeWriteActivity.class);
             startActivity(intent);
         });
-        //TODO: Use startActivityForResult to boot user to main menu if they abort by finishing this
     }
 
     private void configureGenreSpinner() {

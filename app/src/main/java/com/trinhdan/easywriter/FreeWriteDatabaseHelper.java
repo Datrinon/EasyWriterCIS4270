@@ -54,22 +54,21 @@ public class FreeWriteDatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // TODO: Add logic to save the existing data to a collection before wiping it.
+        // TODO: For future update: Add logic to save the existing data to a collection before wiping it.
         // Then, when creating the new database, insert that old data.
         db.execSQL("drop table if exists " + FreewriteTable.TABLE);
         onCreate(db);
     }
 
-    // Add methods to UPDATE and DELETE VALUES from the data.
 
     /**
      * Seeds the database with some default information. For debugging; to be removed later.
      */
-    private void seed(){
-//        FreeWrite fw1 = new FreeWrite(0, new Date(), "Freewrite #01", "fake_link", "", 0, false);
-//        FreeWrite fw2 = new FreeWrite(1, new Date(), "Freewrite #02", "fake_link", "", 0, false);
-//
-//        FreeWriteDAO.getInstance(context).insertFreeWrite(fw1);
-//        FreeWriteDAO.getInstance(context).insertFreeWrite(fw2);
-    }
+//    private void seed(){
+////        FreeWrite fw1 = new FreeWrite(0, new Date(), "Freewrite #01", "fake_link", "", 0, false);
+////        FreeWrite fw2 = new FreeWrite(1, new Date(), "Freewrite #02", "fake_link", "", 0, false);
+////
+////        FreeWriteDAO.getInstance(context).insertFreeWrite(fw1);
+////        FreeWriteDAO.getInstance(context).insertFreeWrite(fw2);
+//    }
 }

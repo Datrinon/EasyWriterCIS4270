@@ -142,9 +142,8 @@ public class FreeWriteListFragment extends Fragment {
 
         @Override
         public void onClick(View view) {
-            // Tell ListActivity what band was clicked, so it can launch the detailActivity.
-            //mListener.onFreeWriteSelected(FreeWrite.getId());
-            // TODO when we implement the detailActivity.
+            // when an entry is selected, use the listener (the activity)
+            // callback to propagate the right ID to the detail activity.
             listener.onFreeWriteSelected(freeWrite.getId());
 
         }

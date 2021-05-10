@@ -1,26 +1,19 @@
 package com.trinhdan.easywriter;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.FragmentManager;
 
 import android.annotation.SuppressLint;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.os.SystemClock;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -66,9 +59,8 @@ public class FreeWriteActivity extends AppCompatActivity {
         });
 
         displayDiceImages();
-        //manager.startTimer();
-        //TODO test functionality of timer with an X second override.
-        manager.startTimer(35000);
+        manager.startTimer();
+        //manager.startTimer(35000); // Debug
         genre.setText(manager.getChosenGenre());
         timerHandler = new Handler(Looper.getMainLooper());
         timerHandler.post(updateTimerRunnable);
@@ -82,6 +74,7 @@ public class FreeWriteActivity extends AppCompatActivity {
         builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                manager.terminateManager(); // terminate the manager.
                 // exit if yes
                 //finish();
                 // Instead of using finish(), use setFlags() in order to relaunch MainActivity and then clear the backstack.
@@ -104,10 +97,6 @@ public class FreeWriteActivity extends AppCompatActivity {
 
     private void timerCompleted() {
         manager.stopTimer();
-        // Remove any remaining Runnables that may reside in UI message queue
-        timerHandler.removeCallbacks(updateTimerRunnable);
-        // Inform the user that the game is over
-        // Call function to end the session.
         endSession();
     }
 
@@ -131,7 +120,7 @@ public class FreeWriteActivity extends AppCompatActivity {
                 timerCompleted();
             }
             else {
-                if (manager.getRemainingSeconds() < 30 && !firedWarningMessage){ // When the timer has 30 seconds left, warn the user.
+                if (manager.getRemainingMilliseconds() < 30000 && !firedWarningMessage){ // When the timer has 10% left, warn user.
                     firedWarningMessage = true;
                     displayTimeWarningMessage();
                 }
@@ -175,7 +164,6 @@ public class FreeWriteActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 endSession();
-                timerHandler.removeCallbacks(updateTimerRunnable); // end async thread.
                 // exit if yes
             }
         });
@@ -190,10 +178,14 @@ public class FreeWriteActivity extends AppCompatActivity {
         alert.show();
     }
 
-    // save the details to a FreeWrite object
-    // call an intent to start a new activity
+    /**
+     * Removes callbacks from the timer thread, saves the user's input and other session data
+     * to the manager, and then starts the 'Over' Activity.
+     */
     private void endSession() {
-        //TODO either choose to save the getText to a string (in-memory) or perform a save and delete operation.
+        // remove any callbacks on the timer
+        // this prevents a new activity from being spawned if the user decides to leave the session early.
+        timerHandler.removeCallbacks(updateTimerRunnable);
         String textEntry = writing.getText().toString();
         String storyPicString = "";
         // To save storyPicString in the SQLite database we describe as a comma separated value
@@ -202,13 +194,14 @@ public class FreeWriteActivity extends AppCompatActivity {
             storyPicString += getResources().getResourceEntryName(picId) + ",";
         }
 
-        //TODO SESSION OVER ANIMATION... GAME OVER POPUP
+        //  create a freewrite object with some dummy data to be filled in, in the next activity.
         FreeWrite fw = new FreeWrite(-1, new Date(), "Untitled",
                                     manager.getChosenGenre(), storyPicString, "filepath_here",
                                     manager.getTimeElapsedInSeconds(), false);
 
         fw.setTextEntry(textEntry);
 
+        // debug
         Log.d(Utility.DEBUG_TAG, fw.getDateAsString());
         Log.d(Utility.DEBUG_TAG, fw.getGenre());
         Log.d(Utility.DEBUG_TAG, String.valueOf(fw.getDuration()));

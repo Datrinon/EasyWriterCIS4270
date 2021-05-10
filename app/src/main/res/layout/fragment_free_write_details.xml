@@ -31,6 +31,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toRightOf="@id/exit_detail_button"
         app:layout_constraintRight_toLeftOf="@id/favorite_button"
+        android:maxLines="1"
         app:layout_constraintHorizontal_weight="6"/>
 
     <Button

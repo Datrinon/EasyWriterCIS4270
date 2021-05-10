@@ -17,7 +17,7 @@ import java.util.Locale;
 import java.util.Scanner;
 
 /*
-    Model to manage the state of the free writing exercise.
+    Model to manage the state of a free writing exercise.
  */
 public class FreeWriteConfigManager {
     // Constants
@@ -47,6 +47,10 @@ public class FreeWriteConfigManager {
         }
 
         return gameManager;
+    }
+
+    public void terminateManager(){
+        gameManager = null;
     }
 
     private FreeWriteConfigManager(){

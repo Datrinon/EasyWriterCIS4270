@@ -102,9 +102,16 @@ public class FreeWriteDetailsFragment extends Fragment {
                 builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        // TODO Delete the record in the database associated with this and close the activity; update the arraylist too.
+                        // TODO (Complete) Delete the record in the database associated with this and close the activity; update the arraylist too.
+                        // Steps
+                        // 1. Call delete method to remove from the database
+                        // 2. If successful, finish the detail activity and send the result to the list activity
+                        // 3. In OnActivityCompleted(), The list activity sets the argument on the fragment
+                        // 4. The fragment receives the argument as a bundle and deletes the right entry
+                        // 5. The fragment updates the list by resetting the adapter
+                        // 6. If the list is actually empty after the delete, then we generate a empty screen view.
                         boolean deleteSuccessful = FreeWriteDAO.getInstance(getContext()).deleteFreeWrite(freeWrite);
-//                        boolean deleteSuccessful = true; // debug
+                        //boolean deleteSuccessful = true; // debug
                         if (deleteSuccessful) {
                             Intent intent = new Intent();
                             intent.putExtra(EXTRA_FREEWRITE_ID, freeWrite.getId());

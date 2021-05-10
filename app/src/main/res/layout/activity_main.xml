@@ -28,6 +28,9 @@
         android:layout_height="wrap_content"
         style="@style/Header2"
         android:text="@string/freewrite_for_fun"
+        android:layout_marginHorizontal="25dp"
+        android:autoSizeTextType="uniform"
+        android:maxLines="1"
         />
 
     <Button
