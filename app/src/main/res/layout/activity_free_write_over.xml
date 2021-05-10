@@ -18,13 +18,16 @@
         android:layout_marginTop="15dp"/>
 
     <ImageView
-        android:id="@+id/success_icon"
+        android:id="@+id/star_success_icon"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:src="@drawable/complete_star"
         app:layout_constraintTop_toBottomOf="@id/success_message"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
+        android:visibility="invisible"
+        android:scaleX="0.01"
+        android:scaleY="0.01"
         />
 
     <TextView
@@ -33,7 +36,7 @@
         android:layout_height="wrap_content"
         android:text="Just some things before we wrap up...:"
         style="@style/Header3"
-        app:layout_constraintTop_toBottomOf="@id/success_icon"
+        app:layout_constraintTop_toBottomOf="@id/star_success_icon"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         />

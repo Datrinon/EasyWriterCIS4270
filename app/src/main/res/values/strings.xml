@@ -2,8 +2,7 @@
     <string name="app_name">Easy Writers</string>
     <string name="title_freewrite_list">Freewrites</string>
     <string name="title_freewrite_detail">Freewrite Detail</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
     <string name="timer_choice_dialog">Your free write session will last %d minutes.</string>
     <string name="dice_choice_dialog">Your session will use %d dice.</string>
     <string name="timer">%02d:%02d</string>
@@ -12,6 +11,20 @@
         How many story dice would you like to use?</string>
     <string name="game_over">Freewrite session over! Submitting in 5 seconds...</string>
     <string name="detail_duration_string">%d minutes, %d seconds</string>
+
+    <string name="freewrite_for_fun">Freewrite for fun.</string>
+
+    <string-array name="title_captions">
+        <item>Free write for fun!</item>
+        <item>Free write for creativity!</item>
+        <item>Free write for relaxation!</item>
+        <item>Expunge your writer\'s block!</item>
+        <item>Express yourself!</item>
+        <item>Explore your subconscious!</item>
+        <item>Find your inner monologue!</item>
+        <item>Worry less, write more!</item>
+        <item>Be amazed at your own creations!</item>
+    </string-array>
 
     <string-array name="dice_number">
         <item>1 Die</item>

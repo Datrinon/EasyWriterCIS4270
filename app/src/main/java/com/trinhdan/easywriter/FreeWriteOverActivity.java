@@ -6,6 +6,8 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -36,6 +38,7 @@ public class FreeWriteOverActivity extends AppCompatActivity {
         markedFavorite = findViewById(R.id.fav_checkbox);
         discardButton = findViewById(R.id.discard_button);
         saveButton = findViewById(R.id.save_button);
+        starGFX = findViewById(R.id.star_success_icon);
         manager = FreeWriteConfigManager.getInstance();
 
         discardButton.setOnClickListener(new View.OnClickListener() {
@@ -97,6 +100,8 @@ public class FreeWriteOverActivity extends AppCompatActivity {
             }
         });
 
+        // play the star animation.
+        animateStar();
     }
 
     private boolean checkTitleFieldNotEmpty() {
@@ -126,4 +131,28 @@ public class FreeWriteOverActivity extends AppCompatActivity {
         }
     }
 
+    private void animateStar(){
+        // show the star
+        starGFX.setVisibility(View.VISIBLE);
+
+        ObjectAnimator fadeInStar = ObjectAnimator.ofFloat(starGFX, "alpha", 0, 1.0f);
+        fadeInStar.setDuration(500);
+
+        ObjectAnimator enlargenStarX = ObjectAnimator.ofFloat(starGFX, "scaleX", 1.15f);
+        enlargenStarX.setDuration(800);
+
+        ObjectAnimator enlargenStarY = ObjectAnimator.ofFloat(starGFX, "scaleY", 1.15f);
+        enlargenStarY.setDuration(800);
+
+        ObjectAnimator scaleStarX = ObjectAnimator.ofFloat(starGFX, "scaleX", 1.0f);
+        scaleStarX.setDuration(300);
+
+        ObjectAnimator scaleStarY = ObjectAnimator.ofFloat(starGFX, "scaleY", 1.0f);
+        scaleStarY.setDuration(300);
+
+        AnimatorSet animSet = new AnimatorSet();
+        animSet.play(fadeInStar).with(enlargenStarX).with(enlargenStarY);
+        animSet.play(scaleStarX).with(scaleStarY).after(enlargenStarY);
+        animSet.start();
+    }
 }

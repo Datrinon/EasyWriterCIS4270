@@ -23,10 +23,11 @@
         />
 
     <TextView
+        android:id="@+id/title_caption"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@style/Header2"
-        android:text="Freewrite for fun."
+        android:text="@string/freewrite_for_fun"
         />
 
     <Button
