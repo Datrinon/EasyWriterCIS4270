@@ -9,21 +9,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.EasyWriter">
-        <activity android:name=".FreeWriteDetailsActivity"></activity>
+        <activity android:name=".controllers.FreeWriteDetailsActivity"></activity>
         <activity
-            android:name=".FreeWriteOverActivity"
-            android:parentActivityName=".MainActivity" />
+            android:name=".controllers.FreeWriteOverActivity"
+            android:parentActivityName=".controllers.MainActivity" />
         <activity
-            android:name=".FreeWriteActivity"
-            android:parentActivityName=".FreeWriteConfigActivity" />
+            android:name=".controllers.FreeWriteActivity"
+            android:parentActivityName=".controllers.FreeWriteConfigActivity" />
         <activity
-            android:name=".FreeWriteConfigActivity"
+            android:name=".controllers.FreeWriteConfigActivity"
             android:label="Free Write Settings"
-            android:parentActivityName=".MainActivity" />
+            android:parentActivityName=".controllers.MainActivity" />
         <activity
-            android:name=".FreeWriteListActivity"
-            android:parentActivityName=".MainActivity" />
-        <activity android:name=".MainActivity">
+            android:name=".controllers.FreeWriteListActivity"
+            android:parentActivityName=".controllers.MainActivity" />
+        <activity android:name=".controllers.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

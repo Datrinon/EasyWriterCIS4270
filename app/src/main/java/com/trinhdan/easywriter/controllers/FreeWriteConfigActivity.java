@@ -1,4 +1,4 @@
-package com.trinhdan.easywriter;
+package com.trinhdan.easywriter.controllers;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,6 +12,9 @@ import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import com.trinhdan.easywriter.models.FreeWriteConfigManager;
+import com.trinhdan.easywriter.R;
 
 import java.util.ArrayList;
 import java.util.Arrays;

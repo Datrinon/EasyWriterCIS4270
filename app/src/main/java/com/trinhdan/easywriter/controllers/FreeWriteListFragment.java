@@ -1,15 +1,11 @@
-package com.trinhdan.easywriter;
+package com.trinhdan.easywriter.controllers;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.ListFragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,8 +16,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.trinhdan.easywriter.models.FreeWrite;
+import com.trinhdan.easywriter.database.FreeWriteDAO;
+import com.trinhdan.easywriter.R;
+import com.trinhdan.easywriter.Utility;
 
 import java.util.List;
 

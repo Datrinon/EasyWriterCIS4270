@@ -1,4 +1,4 @@
-package com.trinhdan.easywriter;
+package com.trinhdan.easywriter.controllers;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,6 +12,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.trinhdan.easywriter.R;
 
 import java.util.Random;
 

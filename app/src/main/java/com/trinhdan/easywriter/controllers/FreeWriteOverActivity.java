@@ -1,4 +1,4 @@
-package com.trinhdan.easywriter;
+package com.trinhdan.easywriter.controllers;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,6 +19,11 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+
+import com.trinhdan.easywriter.models.FreeWriteConfigManager;
+import com.trinhdan.easywriter.database.FreeWriteDAO;
+import com.trinhdan.easywriter.R;
+import com.trinhdan.easywriter.Utility;
 
 public class FreeWriteOverActivity extends AppCompatActivity {
 

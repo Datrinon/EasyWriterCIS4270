@@ -1,4 +1,4 @@
-package com.trinhdan.easywriter;
+package com.trinhdan.easywriter.database;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -7,6 +7,8 @@ import android.database.CursorIndexOutOfBoundsException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.util.Log;
+
+import com.trinhdan.easywriter.models.FreeWrite;
 
 import java.text.ParseException;
 import java.util.ArrayList;

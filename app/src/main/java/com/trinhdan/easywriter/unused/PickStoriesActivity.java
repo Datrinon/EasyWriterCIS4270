@@ -2,16 +2,13 @@ package com.trinhdan.easywriter.unused;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
-import com.trinhdan.easywriter.FreeWriteConfigManager;
+import com.trinhdan.easywriter.models.FreeWriteConfigManager;
 import com.trinhdan.easywriter.R;
 
 import java.util.ArrayList;

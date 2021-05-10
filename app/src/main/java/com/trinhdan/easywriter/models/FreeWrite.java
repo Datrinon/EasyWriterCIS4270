@@ -1,8 +1,7 @@
-package com.trinhdan.easywriter;
+package com.trinhdan.easywriter.models;
 
 import android.util.Log;
 
-import java.lang.reflect.Constructor;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

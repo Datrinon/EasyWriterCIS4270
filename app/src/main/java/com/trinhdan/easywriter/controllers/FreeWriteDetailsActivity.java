@@ -1,10 +1,12 @@
-package com.trinhdan.easywriter;
+package com.trinhdan.easywriter.controllers;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import android.os.Bundle;
+
+import com.trinhdan.easywriter.R;
 
 public class FreeWriteDetailsActivity extends AppCompatActivity {
 

@@ -1,4 +1,4 @@
-package com.trinhdan.easywriter;
+package com.trinhdan.easywriter.database;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

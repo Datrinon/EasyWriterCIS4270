@@ -1,4 +1,4 @@
-package com.trinhdan.easywriter;
+package com.trinhdan.easywriter.controllers;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,6 +19,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.trinhdan.easywriter.models.FreeWrite;
+import com.trinhdan.easywriter.models.FreeWriteConfigManager;
+import com.trinhdan.easywriter.R;
+import com.trinhdan.easywriter.Utility;
 
 import java.util.Date;
 

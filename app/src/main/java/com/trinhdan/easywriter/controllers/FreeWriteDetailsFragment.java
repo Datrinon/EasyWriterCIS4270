@@ -1,4 +1,4 @@
-package com.trinhdan.easywriter;
+package com.trinhdan.easywriter.controllers;
 
 import android.app.Activity;
 import android.content.DialogInterface;
@@ -17,6 +17,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.trinhdan.easywriter.models.FreeWrite;
+import com.trinhdan.easywriter.database.FreeWriteDAO;
+import com.trinhdan.easywriter.R;
+import com.trinhdan.easywriter.Utility;
 
 import java.util.Objects;
 
