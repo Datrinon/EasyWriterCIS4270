@@ -13,6 +13,7 @@
     <string name="detail_duration_string">%d minutes, %d seconds</string>
 
     <string name="freewrite_for_fun">Freewrite for fun.</string>
+    <string name="game_start_button_caption">Go Write</string>
 
     <string-array name="title_captions">
         <item>Free write for fun!</item>
@@ -41,7 +42,7 @@
         <item>Horror</item>
         <item>Rant</item>
         <item>Action</item>
-        <item>Romance</item>
+        <item>Reflection</item>
         <item>Sci Fi</item>
         <item>Poem</item>
         <item>How-To</item>

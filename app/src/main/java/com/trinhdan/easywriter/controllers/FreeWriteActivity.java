@@ -79,7 +79,8 @@ public class FreeWriteActivity extends AppCompatActivity {
         //manager.startTimer(35000); // Debug
         genre.setText(manager.getChosenGenre());
         timerHandler = new Handler(Looper.getMainLooper());
-        timerHandler.post(updateTimerRunnable);
+        // delegate posting of timerHandler to onResume() to prevent two background threads from running.
+        //timerHandler.post(updateTimerRunnable);
     }
 
     @Override
@@ -141,7 +142,7 @@ public class FreeWriteActivity extends AppCompatActivity {
                     displayTimeWarningMessage();
                 }
                 timerHandler.postDelayed(this, 200);
-                Log.d(Utility.DEBUG_TAG, String.format("Completion: %d%%, Seconds: %d", progress, manager.getRemainingSeconds()));
+                Log.d(Utility.DEBUG_TAG, String.format("Completion: %d%%, Seconds: %d", progress, manager.getRemainingMilliseconds()/1000));
             }
         }
     };
@@ -241,6 +242,41 @@ public class FreeWriteActivity extends AppCompatActivity {
         timerHandler.removeCallbacks(updateTimerRunnable);
         super.onSaveInstanceState(outState);
         outState.putLong(KEY_TIME_REMAINING, manager.getRemainingMilliseconds());
+    }
+
+    // Need to restart the handler after the screen gets locked.
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.d(Utility.DEBUG_TAG, "onResume");
+        timerHandler.post(updateTimerRunnable);
+    }
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.d(Utility.DEBUG_TAG, "onStart");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d(Utility.DEBUG_TAG, "onStop");
+
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d(Utility.DEBUG_TAG, "onDestroy");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d(Utility.DEBUG_TAG, "onPause");
     }
 
 

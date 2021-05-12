@@ -135,7 +135,7 @@ public class FreeWriteConfigManager {
         if (dicePictureIds == null) {
             dicePictureIds = new int[DIE_SIDES];
             for (int i = 0; i < dicePictureIds.length; i++) {
-                dicePictureIds[i] = context.getResources().getIdentifier("pic_" + i,
+                dicePictureIds[i] = context.getResources().getIdentifier("pic_" + (i + 1),
                         "drawable", "com.trinhdan.easywriter");
             }
         }

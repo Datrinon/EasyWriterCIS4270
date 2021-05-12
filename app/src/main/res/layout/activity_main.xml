@@ -37,7 +37,7 @@
         android:id="@+id/main_StartGame"
         style="@style/Button_center"
         android:layout_marginTop="25dp"
-        android:text="Start Game"
+        android:text="@string/game_start_button_caption"
         android:drawableLeft="@drawable/pencil"
         android:background="@color/orange_500"
         />
