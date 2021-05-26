@@ -23,7 +23,8 @@ import java.util.Random;
 
 /**
  * This activity allows the user to manage a freewrite session before they begin it.
- * They can select the duration of the session and the number of free-writing dice to apply.
+ * They can select the duration of the session, the number of free-writing dice to apply, and
+ * the genre chosen.
  */
 public class FreeWriteConfigActivity extends AppCompatActivity {
 
@@ -75,6 +76,9 @@ public class FreeWriteConfigActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * This method handles the genre spinner by adapting a string array to it.
+     */
     private void configureGenreSpinner() {
         // region Spinner Initialization for user to select genre.
         spinner = findViewById(R.id.spinner_genre_choice);
@@ -114,6 +118,9 @@ public class FreeWriteConfigActivity extends AppCompatActivity {
         //endregion
     }
 
+    /**
+     * This method configures the dice spinner by adapting a dice string array to it.
+     */
     private void configureDiceSpinner() {
         // region Spinner Initialization for user to select dice.
         spinner = findViewById(R.id.spinner_dice_quantity);
@@ -139,6 +146,10 @@ public class FreeWriteConfigActivity extends AppCompatActivity {
         spinner.setSelection(2); // set default die to three.
         //endregion
     }
+
+    /**
+     * This method configures the seekbar that allows the user to select a duration of time.
+     */
     private void configureSeekbar() {
         // Seekbar configuration.
         seekbar = findViewById(R.id.timer_bar);
@@ -162,6 +173,11 @@ public class FreeWriteConfigActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * Picks the die faces by getting all the picture ids (from filenames containing pic_*)
+     * from the drawables folder, and then chooses a random id from that collection for as many
+     * times as the user selected dice for the free write session.
+     */
     private void pickDieFaces() {
         int[] dicePicArr = FreeWriteConfigManager.getAllDicePictureIDs(this);
         manager.setChosenDieFaceList(new ArrayList<>()); // Wipe arrayList

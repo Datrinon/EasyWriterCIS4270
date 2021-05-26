@@ -38,9 +38,14 @@ public class FreeWriteDAO {
 
     private FreeWriteDAO(Context context){
         dbHelper = new FreeWriteDatabaseHelper(context);
-        db = dbHelper.getWritableDatabase(); // a 'writable' database can be used for reading and writing.
+        db = dbHelper.getWritableDatabase(); // a 'writable' database can be used for reading too, not just writing.
     }
 
+    /**
+     * Fetches a certain freeWrite given the ID. Used in the detail view.
+     * @param freewriteId - the ID of the free write to obtain.
+     * @return - The freeWrite that was found, otherwise database error.
+     */
     public FreeWrite fetchFreeWriteByID(int freewriteId) {
         FreeWrite fw = new FreeWrite();
         String sql = "SELECT * FROM " + FreeWriteDatabaseHelper.FreewriteTable.TABLE + " WHERE " + FreeWriteDatabaseHelper.FreewriteTable.COL_ID + " = ?";
@@ -75,7 +80,8 @@ public class FreeWriteDAO {
      */
     public List<FreeWrite> fetchAllFreeWrites() {
         List<FreeWrite> fwList = new ArrayList<>();
-        String sql = "SELECT * FROM " + FreeWriteDatabaseHelper.FreewriteTable.TABLE + " ORDER BY date DESC";
+        String sql = "SELECT * FROM " + FreeWriteDatabaseHelper.FreewriteTable.TABLE +
+                     " ORDER BY " + FreeWriteDatabaseHelper.FreewriteTable.COL_ID + " DESC";
         Cursor cursor = db.rawQuery(sql, new String[] {});
         try {
             if (cursor.moveToFirst()) {
@@ -103,7 +109,7 @@ public class FreeWriteDAO {
     }
 
     /**
-     * Insert a free write record into the database. R
+     * Insert a free write record into the database.
      */
     public void insertFreeWrite(FreeWrite freeWrite) {
         ContentValues fwValues = new ContentValues();
@@ -118,6 +124,10 @@ public class FreeWriteDAO {
         db.insert(FreeWriteDatabaseHelper.FreewriteTable.TABLE, null, fwValues);
     }
 
+    /**
+     * Update the favorite column of a free write.
+     * @param freeWrite - the FfeeWrite that will be updated.
+     */
     public void updateFreeWriteFavorite(FreeWrite freeWrite) {
 
         ContentValues values = new ContentValues();
@@ -128,6 +138,11 @@ public class FreeWriteDAO {
                 new String[] {Integer.toString(freeWrite.getId())});
     }
 
+    /**
+     * The freewrite to delete.
+     * @param freeWrite - the freeWrite that will be deleted.
+     * @return true if the row was deleted successfully.
+     */
     public boolean deleteFreeWrite(FreeWrite freeWrite) {
         int rowsDeleted = db.delete(FreeWriteDatabaseHelper.FreewriteTable.TABLE,
                         FreeWriteDatabaseHelper.FreewriteTable.COL_ID + " = ?",

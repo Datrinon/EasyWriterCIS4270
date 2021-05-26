@@ -15,6 +15,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -78,6 +79,9 @@ public class FreeWriteListFragment extends Fragment {
 
     }
 
+    /**
+     * Shows an empty screen if the user doesn't have any free writes or deleted them all.
+     */
     private void showEmptyScreen(LinearLayoutCompat ll){
         ll.setOrientation(LinearLayoutCompat.VERTICAL);
 
@@ -118,7 +122,10 @@ public class FreeWriteListFragment extends Fragment {
         listener = null;
     }
 
-
+    /**
+     * Class for specifying the details of inflating a view inside of the Recycler.
+     * TODO In the future, we'll also take steps to display the genre, favorite, and a delete option.
+     */
     private class FreeWriteHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private FreeWrite freeWrite;
@@ -190,14 +197,17 @@ public class FreeWriteListFragment extends Fragment {
 
             if (freeWrites.size() == 0) {
                 this.setArguments(null);
-                // if free writes are 0 after deletion, recreate the view to show an empty sign.
-//                getFragmentManager().beginTransaction().detach(FreeWriteListFragment.this)
-//                        .attach(FreeWriteListFragment.this).commit();
+                // If freewrites are 0, reset arguments and then recreate the fragment view to show
+                // a sign that user has no free writes.
                 getFragmentManager().beginTransaction().replace(R.id.list_fragment_container, new FreeWriteListFragment()).commit();
             }
         }
     }
 
+    /**
+     * Removes the selected free write from the list of free writes (declared at the top).
+     * @param freeWriteID - the ID of the free write to remove.
+     */
     private void removeFreeWrite(int freeWriteID){
         for (int i = 0; i < freeWrites.size(); i++){
             if (freeWrites.get(i).getId() == freeWriteID) {

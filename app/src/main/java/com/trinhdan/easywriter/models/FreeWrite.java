@@ -2,6 +2,7 @@ package com.trinhdan.easywriter.models;
 
 import android.util.Log;
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -11,7 +12,7 @@ import java.util.Locale;
 /**
  * Represents a free write made by the user.
  */
-public class FreeWrite {
+public class FreeWrite implements Serializable {
 
     public static final DateFormat DATE_FORMAT = new SimpleDateFormat("EEE MMM dd HH:mm:ss zzz yyyy", Locale.getDefault());
     public static final DateFormat DATE_FORMAT_DETAILED = new SimpleDateFormat("hh:mm aaa EEE. MMM dd, yyyy", Locale.getDefault());

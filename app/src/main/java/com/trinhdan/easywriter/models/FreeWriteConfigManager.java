@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 /*
-    Model to manage the state of a free writing exercise.
+    Model to manage the state of a free writing exercise. Adheres to singleton pattern.
  */
 public class FreeWriteConfigManager {
     // Constants

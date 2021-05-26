@@ -13,6 +13,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -20,12 +21,15 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.trinhdan.easywriter.models.FreeWrite;
 import com.trinhdan.easywriter.models.FreeWriteConfigManager;
 import com.trinhdan.easywriter.database.FreeWriteDAO;
 import com.trinhdan.easywriter.R;
 import com.trinhdan.easywriter.Utility;
 
 public class FreeWriteOverActivity extends AppCompatActivity {
+
+    private final String KEY_FREEWRITE = "freeWrite";
 
     EditText givenTitle;
     CheckBox markedFavorite;
@@ -44,6 +48,7 @@ public class FreeWriteOverActivity extends AppCompatActivity {
         discardButton = findViewById(R.id.discard_button);
         saveButton = findViewById(R.id.save_button);
         starGFX = findViewById(R.id.star_success_icon);
+        // thanks to singleton, the config manager doesn't wipe the free write when the activity is rotated.
         manager = FreeWriteConfigManager.getInstance();
 
         discardButton.setOnClickListener(new View.OnClickListener() {
@@ -80,10 +85,14 @@ public class FreeWriteOverActivity extends AppCompatActivity {
 
         // play the star animation.
         animateStar();
+
     }
 
+    /**
+     * Displays discard message if user presses discard button.
+     */
     private void displayDiscardMessage() {
-        // Supposedly hides the keyboard. Let's see
+        // Code that hides the keyboard when the discard message appears while the user enters title
         InputMethodManager imm = (InputMethodManager) getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(getWindow().getDecorView().getWindowToken(), InputMethodManager.HIDE_IMPLICIT_ONLY);
 
@@ -115,6 +124,9 @@ public class FreeWriteOverActivity extends AppCompatActivity {
         alert.show();
     }
 
+    /**
+     * Error handling to make sure that the user gave a title, otherwise will not proceed with saving.
+     */
     private boolean checkTitleFieldNotEmpty() {
         return (givenTitle.getText().length() > 0);
     }
@@ -124,6 +136,9 @@ public class FreeWriteOverActivity extends AppCompatActivity {
         displayDiscardMessage();
     }
 
+    /**
+     * Animates the star when the activity is created.
+     */
     private void animateStar(){
         // show the star
         starGFX.setVisibility(View.VISIBLE);
@@ -149,6 +164,10 @@ public class FreeWriteOverActivity extends AppCompatActivity {
         animSet.start();
     }
 
+    /**
+     * A class that is responsible for creating a dialog that shows the save was successful after
+     * the user presses the save button; pressing OK takes them back to the main menu.
+     */
     public static class OKDialogFragment extends DialogFragment {
         @NonNull
         @Override
@@ -169,6 +188,5 @@ public class FreeWriteOverActivity extends AppCompatActivity {
             return builder.create();
         }
     }
-
 
 }

@@ -50,6 +50,8 @@ public class FreeWriteDatabaseHelper extends SQLiteOpenHelper {
                 FreewriteTable.COL_DURATION + " integer," +
                 FreewriteTable.COL_FAV + " integer" +
                 ")");
+
+
     }
 
     @Override

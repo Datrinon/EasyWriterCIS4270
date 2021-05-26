@@ -58,6 +58,7 @@
             android:layout_height="0dp"
             android:layout_width="0dp"
             android:text="View Previous Works"
+            android:autoSizeTextType="uniform"
             android:drawableLeft="@drawable/history"
             android:paddingLeft="15dp"
             android:background="@color/orange_500"

@@ -62,6 +62,10 @@ public class FreeWriteListActivity extends AppCompatActivity implements FreeWrit
         }
     }
 
+    // This method is called after the user finishes the detail activity. It passes on an ID
+    // to its fragment, which if valid, will remove the free write from the list.
+    // This occurs in the onResume of the list fragment's class since onCreate isn't called after
+    // returning to the activity.
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

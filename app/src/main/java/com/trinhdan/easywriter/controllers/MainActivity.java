@@ -73,6 +73,9 @@ public class MainActivity extends AppCompatActivity {
         animateTitleCaption();
     }
 
+    /**
+     * Animates the title caption upon launch; expands and shrinks the caption repeatedly.
+     */
     private void animateTitleCaption() {
         ObjectAnimator enlargenX = ObjectAnimator.ofFloat(captionTextView, "scaleX", 1.10f);
         enlargenX.setDuration(900);
@@ -90,6 +93,10 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Upon the user pressing the caption, this method is part of a callback that swaps the title caption
+     * for another caption.
+     */
     private void swapTitleCaption(){
         // pause the animation
         captionTitleIdleAnimation.pause();

@@ -83,6 +83,9 @@ public class FreeWriteActivity extends AppCompatActivity {
         //timerHandler.post(updateTimerRunnable);
     }
 
+    // When the user presses BACK, instead of returning to the previous activity,
+    // a dialog appears asking them to confirm their intent. If they truly wish to end the session
+    // We wipe this activity and config activity from the stack and return them to the main menu.
     @Override
     public void onBackPressed() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -112,11 +115,18 @@ public class FreeWriteActivity extends AppCompatActivity {
         alert.show();
     }
 
+    /**
+     * Called when the timer expires. Marks the timer as stopped and then ends the session to wrap up
+     * things here before moving to the next activity.
+     */
     private void timerCompleted() {
         manager.stopTimer();
         endSession();
     }
 
+    /**
+     * Displays a warning toast when time is running low.
+     */
     private void displayTimeWarningMessage(){
         Log.d(Utility.DEBUG_TAG, "Executing warning message...");
         Toast.makeText(this, "Time is running low. Start wrapping up your work.", Toast.LENGTH_LONG).show();
@@ -147,6 +157,9 @@ public class FreeWriteActivity extends AppCompatActivity {
         }
     };
 
+    /**
+     * Called in onCreate to display dice images when the activity is loaded / recreated from rotation.
+     */
     private void displayDiceImages(){
         diceContainer.removeAllViews(); // Remove template views.
 
@@ -197,7 +210,7 @@ public class FreeWriteActivity extends AppCompatActivity {
 
     /**
      * Removes callbacks from the timer thread, saves the user's input and other session data
-     * to the manager, and then starts the 'Over' Activity.
+     * to the manager, and then starts the freewrite session over activity.
      */
     private void endSession() {
         long sessionDuration = (SystemClock.uptimeMillis() - manager.getSessionStartTime()) / 1000;
@@ -245,6 +258,8 @@ public class FreeWriteActivity extends AppCompatActivity {
     }
 
     // Need to restart the handler after the screen gets locked.
+    // update: only need to call post once -- either from onCreate or onResume,
+    // so we remove the onCreate call.
     @Override
     protected void onResume() {
         super.onResume();
@@ -252,7 +267,7 @@ public class FreeWriteActivity extends AppCompatActivity {
         timerHandler.post(updateTimerRunnable);
     }
 
-
+    //region Activity Lifecycle Methods -- for Debugging
     @Override
     protected void onStart() {
         super.onStart();
@@ -278,6 +293,7 @@ public class FreeWriteActivity extends AppCompatActivity {
         super.onPause();
         Log.d(Utility.DEBUG_TAG, "onPause");
     }
+    //endregion
 
 
 }

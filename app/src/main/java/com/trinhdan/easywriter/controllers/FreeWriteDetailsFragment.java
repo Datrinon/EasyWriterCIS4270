@@ -109,7 +109,7 @@ public class FreeWriteDetailsFragment extends Fragment {
                     public void onClick(DialogInterface dialog, int which) {
                         // TODO (Complete) Delete the record in the database associated with this and close the activity; update the arraylist too.
                         // Steps
-                        // 1. Call delete method to remove from the database
+                        // 1. Call delete method in DAO to remove from the database
                         // 2. If successful, finish the detail activity and send the result to the list activity
                         // 3. In OnActivityCompleted(), The list activity sets the argument on the fragment
                         // 4. The fragment receives the argument as a bundle and deletes the right entry
